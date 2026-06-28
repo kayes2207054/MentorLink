@@ -16,6 +16,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call([
+            DepartmentSeeder::class,
+            SkillSeeder::class,
+        ]);
+
         User::updateOrCreate([
             'email' => 'admin@mentorlink.test',
         ], [
