@@ -60,4 +60,48 @@
         </div>
     </div>
 </div>
+
+<h2 class="h3 mt-4 mb-3">Session Bookings</h2>
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="card text-white bg-primary h-100">
+            <div class="card-body">
+                <h5 class="card-title">Total</h5>
+                <h2 class="display-5">{{ $totalSessions }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 mb-4">
+        <div class="card text-dark bg-warning h-100">
+            <div class="card-body">
+                <h5 class="card-title">Pending</h5>
+                <h2 class="display-5">{{ $pendingSessions }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 mb-4">
+        <div class="card text-white bg-success h-100">
+            <div class="card-body">
+                <h5 class="card-title">Accepted</h5>
+                <h2 class="display-5">{{ $acceptedSessions }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 mb-4">
+        <div class="card text-white bg-info h-100">
+            <div class="card-body">
+                <h5 class="card-title">Completed</h5>
+                <h2 class="display-5">{{ $completedSessions }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card text-white bg-secondary h-100">
+            <div class="card-body">
+                <h5 class="card-title">Cancelled/Rejected</h5>
+                <h2 class="display-5">{{ $cancelledSessions }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

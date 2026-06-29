@@ -5,6 +5,57 @@
         </h2>
     </x-slot>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bootstrap-wrapper">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                
+                <h3 class="mb-4">Session Bookings</h3>
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <div class="card text-white bg-danger">
+                            <div class="card-body">
+                                <h6>Today's Sessions</h6>
+                                <h2>{{ $todayBookings->count() }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card text-white bg-success">
+                            <div class="card-body">
+                                <h6>Upcoming Sessions</h6>
+                                <h2>{{ $upcomingBookings->count() }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card text-dark bg-warning">
+                            <div class="card-body">
+                                <h6>Pending Bookings</h6>
+                                <h2>{{ $pendingBookings->count() }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card text-white bg-primary">
+                            <div class="card-body">
+                                <h6>Completed Sessions</h6>
+                                <h2>{{ $completedBookings->count() }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4 d-flex gap-2">
+                    <a href="{{ route('mentor.availabilities.index') }}" class="btn btn-outline-primary">Manage Availability</a>
+                    <a href="{{ route('mentor.bookings.index') }}" class="btn btn-outline-secondary">View All Bookings</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
