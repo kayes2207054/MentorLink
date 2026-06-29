@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminMentorController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Mentor\AvailabilityController;
 use App\Http\Controllers\Mentor\SessionBookingController;
@@ -34,6 +35,10 @@ Route::middleware(['auth', 'verified', 'role:'.User::ROLE_ADMIN])->prefix('admin
     Route::resource('skills', SkillController::class)->except(['show']);
     Route::get('/student-profiles/{studentProfile}', [StudentProfileController::class, 'adminShow'])->name('student-profiles.show');
     Route::get('/mentor-profiles/{mentorProfile}', [MentorProfileController::class, 'adminShow'])->name('mentor-profiles.show');
+
+    // Reviews
+    Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 });
 
 // Mentor Dashboard
@@ -50,9 +55,12 @@ Route::get('/mentor/dashboard', function () {
     $pendingBookings = $bookings->where('status', 'pending');
     $completedBookings = $bookings->where('status', 'completed');
 
+    $reviews = request()->user()->reviewsReceived()->with('student')->latest()->take(5)->get();
+
     return view('mentor.dashboard', compact(
         'pendingRequests', 'acceptedRequests', 'rejectedRequests',
-        'bookings', 'todayBookings', 'upcomingBookings', 'pendingBookings', 'completedBookings'
+        'bookings', 'todayBookings', 'upcomingBookings', 'pendingBookings', 'completedBookings',
+        'reviews'
     ));
 })->middleware(['auth', 'verified', 'role:'.User::ROLE_MENTOR])->name('mentor.dashboard');
 
@@ -69,6 +77,9 @@ Route::middleware(['auth', 'verified', 'role:'.User::ROLE_MENTOR])->prefix('ment
     Route::resource('availabilities', AvailabilityController::class)->except(['show']);
     Route::get('/bookings', [SessionBookingController::class, 'index'])->name('bookings.index');
     Route::patch('/bookings/{booking}/status', [SessionBookingController::class, 'updateStatus'])->name('bookings.updateStatus');
+
+    // Reviews
+    Route::get('/reviews', [App\Http\Controllers\Mentor\ReviewController::class, 'index'])->name('reviews.index');
 });
 
 // Student Dashboard
@@ -79,7 +90,11 @@ Route::get('/student/dashboard', function () {
     $completedBookings = $bookings->where('status', 'completed');
     $cancelledBookings = $bookings->where('status', 'cancelled');
 
-    return view('student.dashboard', compact('bookings', 'upcomingBookings', 'pendingBookings', 'completedBookings', 'cancelledBookings'));
+    // To review
+    $sessionsAwaitingReview = request()->user()->bookedSessions()->where('status', 'completed')->doesntHave('review')->with('mentor')->get();
+    $submittedReviews = request()->user()->reviewsGiven()->with('mentor', 'sessionBooking')->latest()->get();
+
+    return view('student.dashboard', compact('bookings', 'upcomingBookings', 'pendingBookings', 'completedBookings', 'cancelledBookings', 'sessionsAwaitingReview', 'submittedReviews'));
 })->middleware(['auth', 'verified', 'role:'.User::ROLE_STUDENT])->name('student.dashboard');
 
 // Student Group
@@ -99,6 +114,13 @@ Route::middleware(['auth', 'verified', 'role:'.User::ROLE_STUDENT])->prefix('stu
     Route::get('/mentors/{mentor}/book', [App\Http\Controllers\Student\SessionBookingController::class, 'create'])->name('bookings.create');
     Route::post('/mentors/{mentor}/book', [App\Http\Controllers\Student\SessionBookingController::class, 'store'])->name('bookings.store');
     Route::patch('/bookings/{booking}/cancel', [App\Http\Controllers\Student\SessionBookingController::class, 'cancel'])->name('bookings.cancel');
+
+    // Reviews
+    Route::get('/bookings/{booking}/review', [App\Http\Controllers\Student\ReviewController::class, 'create'])->name('reviews.create');
+    Route::post('/bookings/{booking}/review', [App\Http\Controllers\Student\ReviewController::class, 'store'])->name('reviews.store');
+    Route::get('/reviews/{review}/edit', [App\Http\Controllers\Student\ReviewController::class, 'edit'])->name('reviews.edit');
+    Route::patch('/reviews/{review}', [App\Http\Controllers\Student\ReviewController::class, 'update'])->name('reviews.update');
+    Route::delete('/reviews/{review}', [App\Http\Controllers\Student\ReviewController::class, 'destroy'])->name('reviews.destroy');
 });
 
 // Common Auth

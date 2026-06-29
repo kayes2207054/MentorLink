@@ -33,4 +33,9 @@ class SessionBooking extends Model
     {
         return $this->belongsTo(MentorAvailability::class, 'availability_id');
     }
+
+    public function review()
+    {
+        return $this->hasOne(Review::class, 'session_booking_id');
+    }
 }

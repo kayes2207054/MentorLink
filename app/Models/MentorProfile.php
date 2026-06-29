@@ -37,6 +37,16 @@ class MentorProfile extends Model
         return $this->hasMany(MentorAvailability::class);
     }
 
+    public function averageRating()
+    {
+        return $this->user->reviewsReceived()->avg('rating') ?? 0;
+    }
+
+    public function totalReviews()
+    {
+        return $this->user->reviewsReceived()->count();
+    }
+
     public function skills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class, 'mentor_skill');

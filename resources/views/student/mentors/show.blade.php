@@ -13,7 +13,12 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 flex flex-col md:flex-row gap-8">
                 <div class="md:w-1/3">
                     <h3 class="text-2xl font-bold">{{ $mentor->name }}</h3>
-                    <p class="text-gray-600 mb-4">{{ $mentor->mentorProfile->designation }}</p>
+                    <p class="text-gray-600 mb-2">{{ $mentor->mentorProfile->designation }}</p>
+                    
+                    <div class="text-yellow-500 font-bold mb-4">
+                        {{ number_format($mentor->mentorProfile->averageRating(), 1) }} ⭐ 
+                        <span class="text-gray-500 text-xs font-normal">({{ $mentor->mentorProfile->totalReviews() }} reviews)</span>
+                    </div>
                     
                     <h4 class="font-semibold mt-4">Skills</h4>
                     <div class="flex flex-wrap mt-2">

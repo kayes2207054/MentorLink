@@ -18,8 +18,10 @@
                         @endforeach
                     </select>
 
-                    <select name="department" class="border-gray-300 rounded-md shadow-sm">
-                        <option value="">All Departments</option>
+                    <select name="sort" class="border-gray-300 rounded-md shadow-sm">
+                        <option value="">Newest Mentor</option>
+                        <option value="highest_rated" {{ request('sort') == 'highest_rated' ? 'selected' : '' }}>Highest Rated</option>
+                        <option value="most_reviewed" {{ request('sort') == 'most_reviewed' ? 'selected' : '' }}>Most Reviewed</option>
                     </select>
 
                     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -32,7 +34,12 @@
                     @foreach($mentors as $mentor)
                         <div class="border rounded-lg p-4 shadow-sm">
                             <h3 class="text-lg font-bold">{{ $mentor->name }}</h3>
-                            <p class="text-gray-600 text-sm">{{ $mentor->mentorProfile->designation }}</p>
+                            <p class="text-gray-600 text-sm mb-2">{{ $mentor->mentorProfile->designation }}</p>
+                            
+                            <div class="text-yellow-500 font-bold">
+                                {{ number_format($mentor->reviews_received_avg_rating ?? 0, 1) }} ⭐ 
+                                <span class="text-gray-500 text-xs font-normal">({{ $mentor->reviews_received_count ?? 0 }} reviews)</span>
+                            </div>
                             <div class="mt-4">
                                 @foreach($mentor->mentorProfile->skills as $skill)
                                     <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">{{ $skill->name }}</span>

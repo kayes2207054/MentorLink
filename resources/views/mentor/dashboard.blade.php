@@ -50,7 +50,31 @@
                 <div class="mb-4 d-flex gap-2">
                     <a href="{{ route('mentor.availabilities.index') }}" class="btn btn-outline-primary">Manage Availability</a>
                     <a href="{{ route('mentor.bookings.index') }}" class="btn btn-outline-secondary">View All Bookings</a>
+                    <a href="{{ route('mentor.reviews.index') }}" class="btn btn-outline-info">View All Reviews</a>
                 </div>
+                
+                <h3 class="mb-4 mt-5">Reviews & Ratings</h3>
+                <div class="d-flex align-items-center mb-4">
+                    <h4 class="me-3 mb-0">Average Rating: <span class="text-warning">{{ number_format(auth()->user()->mentorProfile->averageRating(), 1) }} ⭐</span></h4>
+                    <span class="badge bg-secondary">Total Reviews: {{ auth()->user()->mentorProfile->totalReviews() }}</span>
+                </div>
+                
+                @if(isset($reviews) && $reviews->count() > 0)
+                    <div class="list-group">
+                        @foreach($reviews as $review)
+                            <div class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">{{ $review->title }} <span class="text-warning">{{ str_repeat('⭐', $review->rating) }}</span></h5>
+                                    <small>{{ $review->created_at->diffForHumans() }}</small>
+                                </div>
+                                <p class="mb-1">{{ $review->comment }}</p>
+                                <small>By {{ $review->student->name }}</small>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="alert alert-info">No reviews received yet.</div>
+                @endif
 
             </div>
         </div>

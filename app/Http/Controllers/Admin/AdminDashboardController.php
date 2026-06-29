@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\MentorProfile;
 use App\Models\MentorshipRequest;
+use App\Models\Review;
 use App\Models\SessionBooking;
 use App\Models\Skill;
 use App\Models\User;
@@ -27,6 +28,23 @@ class AdminDashboardController extends Controller
         $completedSessions = SessionBooking::where('status', 'completed')->count();
         $cancelledSessions = SessionBooking::where('status', 'cancelled')->count();
 
+        $totalReviews = Review::count();
+        $highestRatedMentors = User::where('role', User::ROLE_MENTOR)
+            ->withAvg('reviewsReceived', 'rating')
+            ->withCount('reviewsReceived')
+            ->has('reviewsReceived')
+            ->orderByDesc('reviews_received_avg_rating')
+            ->take(5)
+            ->get();
+
+        $lowestRatedMentors = User::where('role', User::ROLE_MENTOR)
+            ->withAvg('reviewsReceived', 'rating')
+            ->withCount('reviewsReceived')
+            ->has('reviewsReceived')
+            ->orderBy('reviews_received_avg_rating')
+            ->take(5)
+            ->get();
+
         return view('admin.dashboard', compact(
             'totalStudents',
             'totalMentors',
@@ -38,7 +56,10 @@ class AdminDashboardController extends Controller
             'pendingSessions',
             'acceptedSessions',
             'completedSessions',
-            'cancelledSessions'
+            'cancelledSessions',
+            'totalReviews',
+            'highestRatedMentors',
+            'lowestRatedMentors'
         ));
     }
 }

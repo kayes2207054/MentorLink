@@ -107,6 +107,49 @@
                     </table>
                 </div>
 
+                <h4 class="mt-5">Sessions Awaiting Review</h4>
+                @if(isset($sessionsAwaitingReview) && $sessionsAwaitingReview->count() > 0)
+                    <div class="list-group mb-4">
+                        @foreach($sessionsAwaitingReview as $session)
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-0">Session with {{ $session->mentor->name }}</h6>
+                                    <small class="text-muted">{{ $session->booking_date->format('M d, Y') }}</small>
+                                </div>
+                                <a href="{{ route('student.reviews.create', $session) }}" class="btn btn-sm btn-outline-primary">Leave Review</a>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="alert alert-light border">You have no pending sessions to review.</div>
+                @endif
+
+                <h4 class="mt-5">My Submitted Reviews</h4>
+                @if(isset($submittedReviews) && $submittedReviews->count() > 0)
+                    <div class="list-group">
+                        @foreach($submittedReviews as $review)
+                            <div class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Mentor: {{ $review->mentor->name }} <span class="text-warning">{{ str_repeat('⭐', $review->rating) }}</span></h6>
+                                    <div>
+                                        <a href="{{ route('student.reviews.edit', $review) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                        <form action="{{ route('student.reviews.destroy', $review) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this review?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <p class="mb-1 mt-2 fw-bold">{{ $review->title }}</p>
+                                <p class="mb-1 text-muted">{{ $review->comment }}</p>
+                                <small>Submitted {{ $review->created_at->diffForHumans() }}</small>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="alert alert-light border">You haven't submitted any reviews yet.</div>
+                @endif
+
             </div>
         </div>
     </div>

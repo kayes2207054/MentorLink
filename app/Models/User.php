@@ -77,6 +77,16 @@ class User extends Authenticatable
         return $this->hasMany(SessionBooking::class, 'mentor_id');
     }
 
+    public function reviewsGiven()
+    {
+        return $this->hasMany(Review::class, 'student_id');
+    }
+
+    public function reviewsReceived()
+    {
+        return $this->hasMany(Review::class, 'mentor_id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
