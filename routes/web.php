@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminMentorController;
+use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\MentorDirectoryController;
 use App\Http\Controllers\MentorProfileController;
 use App\Http\Controllers\MentorshipRequestController;
@@ -16,11 +21,18 @@ Route::get('/dashboard', function () {
     return redirect()->route(request()->user()->dashboardRoute());
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', 'verified', 'role:'.User::ROLE_ADMIN])->name('admin.dashboard');
-
 Route::middleware(['auth', 'verified', 'role:'.User::ROLE_ADMIN])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
+    Route::patch('/users/{user}/status', [AdminUserController::class, 'updateStatus'])->name('users.updateStatus');
+
+    Route::get('/mentors', [AdminMentorController::class, 'index'])->name('mentors.index');
+    Route::patch('/mentors/{mentorProfile}/verify', [AdminMentorController::class, 'verify'])->name('mentors.verify');
+
+    Route::resource('departments', DepartmentController::class)->except(['show']);
+    Route::resource('skills', SkillController::class)->except(['show']);
+
     Route::get('/student-profiles/{studentProfile}', [StudentProfileController::class, 'adminShow'])
         ->name('student-profiles.show');
     Route::get('/mentor-profiles/{mentorProfile}', [MentorProfileController::class, 'adminShow'])

@@ -29,8 +29,14 @@ class User extends Authenticatable
         'name',
         'email',
         'role',
+        'is_active',
         'password',
     ];
+
+    public function isActive(): bool
+    {
+        return (bool) $this->is_active;
+    }
 
     public function dashboardRoute(): string
     {
