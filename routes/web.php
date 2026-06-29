@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\MentorDirectoryController;
 use App\Http\Controllers\MentorProfileController;
+use App\Http\Controllers\MentorshipRequestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentProfileController;
 use App\Models\User;
@@ -26,7 +28,12 @@ Route::middleware(['auth', 'verified', 'role:'.User::ROLE_ADMIN])->prefix('admin
 });
 
 Route::get('/mentor/dashboard', function () {
-    return view('mentor.dashboard');
+    $requests = request()->user()->receivedMentorshipRequests()->with('student.studentProfile')->latest()->get();
+    $pendingRequests = $requests->where('status', 'pending');
+    $acceptedRequests = $requests->where('status', 'accepted');
+    $rejectedRequests = $requests->where('status', 'rejected');
+
+    return view('mentor.dashboard', compact('pendingRequests', 'acceptedRequests', 'rejectedRequests'));
 })->middleware(['auth', 'verified', 'role:'.User::ROLE_MENTOR])->name('mentor.dashboard');
 
 Route::middleware(['auth', 'verified', 'role:'.User::ROLE_MENTOR])->prefix('mentor')->name('mentor.')->group(function () {
@@ -35,6 +42,8 @@ Route::middleware(['auth', 'verified', 'role:'.User::ROLE_MENTOR])->prefix('ment
     Route::post('/profile', [MentorProfileController::class, 'store'])->name('profile.store');
     Route::get('/profile/edit', [MentorProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [MentorProfileController::class, 'update'])->name('profile.update');
+
+    Route::patch('/mentorship-requests/{mentorship_request}', [MentorshipRequestController::class, 'update'])->name('mentorship-requests.update');
 });
 
 Route::get('/student/dashboard', function () {
@@ -47,6 +56,12 @@ Route::middleware(['auth', 'verified', 'role:'.User::ROLE_STUDENT])->prefix('stu
     Route::post('/profile', [StudentProfileController::class, 'store'])->name('profile.store');
     Route::get('/profile/edit', [StudentProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [StudentProfileController::class, 'update'])->name('profile.update');
+
+    Route::get('/mentors', [MentorDirectoryController::class, 'index'])->name('mentors.index');
+    Route::get('/mentors/{mentor}', [MentorDirectoryController::class, 'show'])->name('mentors.show');
+
+    Route::post('/mentorship-requests', [MentorshipRequestController::class, 'store'])->name('mentorship-requests.store');
+    Route::delete('/mentorship-requests/{mentorship_request}', [MentorshipRequestController::class, 'destroy'])->name('mentorship-requests.destroy');
 });
 
 Route::middleware('auth')->group(function () {
