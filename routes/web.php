@@ -57,10 +57,13 @@ Route::get('/mentor/dashboard', function () {
 
     $reviews = request()->user()->reviewsReceived()->with('student')->latest()->take(5)->get();
 
+    $averageRating = request()->user()->mentorProfile->averageRating() ?? 0;
+    $totalReviews = request()->user()->mentorProfile->totalReviews() ?? 0;
+
     return view('mentor.dashboard', compact(
         'pendingRequests', 'acceptedRequests', 'rejectedRequests',
         'bookings', 'todayBookings', 'upcomingBookings', 'pendingBookings', 'completedBookings',
-        'reviews'
+        'reviews', 'averageRating', 'totalReviews'
     ));
 })->middleware(['auth', 'verified', 'role:'.User::ROLE_MENTOR])->name('mentor.dashboard');
 

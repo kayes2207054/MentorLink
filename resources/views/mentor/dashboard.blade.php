@@ -7,142 +7,187 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <style>
+        .bootstrap-wrapper { font-family: 'Inter', sans-serif; }
+        .bootstrap-wrapper .card { transition: transform 0.2s, box-shadow 0.2s; border-radius: 0.75rem; }
+        .bootstrap-wrapper .card:hover { transform: translateY(-3px); box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important; }
+    </style>
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bootstrap-wrapper">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                
-                <h3 class="mb-4">Session Bookings</h3>
-                <div class="row">
-                    <div class="col-md-3 mb-3">
-                        <div class="card text-white bg-danger">
-                            <div class="card-body">
-                                <h6>Today's Sessions</h6>
-                                <h2>{{ $todayBookings->count() }}</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <div class="card text-white bg-success">
-                            <div class="card-body">
-                                <h6>Upcoming Sessions</h6>
-                                <h2>{{ $upcomingBookings->count() }}</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <div class="card text-dark bg-warning">
-                            <div class="card-body">
-                                <h6>Pending Bookings</h6>
-                                <h2>{{ $pendingBookings->count() }}</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <div class="card text-white bg-primary">
-                            <div class="card-body">
-                                <h6>Completed Sessions</h6>
-                                <h2>{{ $completedBookings->count() }}</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <x-auth-session-status class="mb-4" :status="session('status')" />
 
-                <div class="mb-4 d-flex gap-2">
-                    <a href="{{ route('mentor.availabilities.index') }}" class="btn btn-outline-primary">Manage Availability</a>
-                    <a href="{{ route('mentor.bookings.index') }}" class="btn btn-outline-secondary">View All Bookings</a>
-                    <a href="{{ route('mentor.reviews.index') }}" class="btn btn-outline-info">View All Reviews</a>
+            <!-- Dashboard Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-bold mb-0 text-gray-800">Mentor Dashboard</h3>
+                <div class="d-flex gap-2">
+                    <a href="{{ route('mentor.availabilities.index') }}" class="btn btn-primary shadow-sm hover-lift-btn"><i class="bi bi-calendar-plus me-1"></i> Manage Availability</a>
+                    <a href="{{ route('mentor.bookings.index') }}" class="btn btn-outline-secondary shadow-sm hover-lift-btn">All Bookings</a>
                 </div>
-                
-                <h3 class="mb-4 mt-5">Reviews & Ratings</h3>
-                <div class="d-flex align-items-center mb-4">
-                    <h4 class="me-3 mb-0">Average Rating: <span class="text-warning">{{ number_format(auth()->user()->mentorProfile->averageRating(), 1) }} ⭐</span></h4>
-                    <span class="badge bg-secondary">Total Reviews: {{ auth()->user()->mentorProfile->totalReviews() }}</span>
-                </div>
-                
-                @if(isset($reviews) && $reviews->count() > 0)
-                    <div class="list-group">
-                        @foreach($reviews as $review)
-                            <div class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">{{ $review->title }} <span class="text-warning">{{ str_repeat('⭐', $review->rating) }}</span></h5>
-                                    <small>{{ $review->created_at->diffForHumans() }}</small>
-                                </div>
-                                <p class="mb-1">{{ $review->comment }}</p>
-                                <small>By {{ $review->student->name }}</small>
-                            </div>
-                        @endforeach
-                    </div>
-                @else
-                    <div class="alert alert-info">No reviews received yet.</div>
-                @endif
-
             </div>
-        </div>
-    </div>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __('Welcome to the mentor area.') }}
-                    <x-auth-session-status class="mb-4 mt-4" :status="session('status')" />
+            <!-- Stats Row -->
+            <div class="row g-4 mb-5">
+                <div class="col-md-3">
+                    <x-stat-card title="Today" :value="$todayBookings->count()" icon="calendar-day" color="primary" />
+                </div>
+                <div class="col-md-3">
+                    <x-stat-card title="Upcoming" :value="$upcomingBookings->count()" icon="calendar-event" color="success" />
+                </div>
+                <div class="col-md-3">
+                    <x-stat-card title="Pending" :value="$pendingBookings->count()" icon="hourglass-split" color="warning" />
+                </div>
+                <div class="col-md-3">
+                    <x-stat-card title="Completed" :value="$completedBookings->count()" icon="check-circle" color="info" />
+                </div>
+            </div>
 
-                    <h3 class="text-xl font-bold mt-8 mb-4">Pending Requests</h3>
-                    @if($pendingRequests->count() > 0)
-                        <div class="space-y-4">
-                            @foreach($pendingRequests as $request)
-                                <div class="border p-4 rounded bg-yellow-50">
-                                    <p class="font-bold">{{ $request->student->name }}</p>
-                                    <p class="text-gray-700 italic">"{{ $request->message }}"</p>
-                                    <div class="mt-4 flex space-x-2">
-                                        <form method="POST" action="{{ route('mentor.mentorship-requests.update', $request) }}">
-                                            @csrf
-                                            @method('PATCH')
-                                            <input type="hidden" name="status" value="accepted">
-                                            <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded">Accept</button>
-                                        </form>
-                                        <form method="POST" action="{{ route('mentor.mentorship-requests.update', $request) }}">
-                                            @csrf
-                                            @method('PATCH')
-                                            <input type="hidden" name="status" value="rejected">
-                                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">Reject</button>
-                                        </form>
+            <div class="row g-4">
+                <!-- Mentorship Requests -->
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-sm h-100 rounded-4 hover-lift">
+                        <div class="card-body p-4">
+                            <h4 class="mb-4 fw-bold">Mentorship Requests</h4>
+                            
+                            <ul class="nav nav-pills mb-3 border-bottom pb-2" id="requests-tab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active rounded-pill fw-medium" id="pending-tab" data-bs-toggle="pill" data-bs-target="#pending" type="button" role="tab">Pending <span class="badge bg-warning text-dark ms-1">{{ $pendingRequests->count() }}</span></button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link rounded-pill fw-medium" id="accepted-tab" data-bs-toggle="pill" data-bs-target="#accepted" type="button" role="tab">Accepted</button>
+                                </li>
+                            </ul>
+                            
+                            <div class="tab-content" id="requests-tabContent">
+                                <!-- Pending Requests -->
+                                <div class="tab-pane fade show active" id="pending" role="tabpanel">
+                                    @if($pendingRequests->count() > 0)
+                                        <div class="list-group list-group-flush border-top-0">
+                                            @foreach($pendingRequests as $request)
+                                                <div class="list-group-item border-start-0 border-end-0 px-0 py-3">
+                                                    <div class="d-flex justify-content-between align-items-start">
+                                                        <div class="d-flex align-items-center">
+                                                            <img src="https://ui-avatars.com/api/?name={{ urlencode($request->student->name) }}&background=random" class="rounded-circle me-3" width="40" height="40" alt="{{ $request->student->name }}">
+                                                            <div>
+                                                                <h6 class="fw-bold mb-1">{{ $request->student->name }}</h6>
+                                                                <p class="text-muted small mb-0 fst-italic">"{{ Str::limit($request->message, 60) }}"</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex gap-2 ms-2">
+                                                            <form method="POST" action="{{ route('mentor.mentorship-requests.update', $request) }}">
+                                                                @csrf @method('PATCH')
+                                                                <input type="hidden" name="status" value="accepted">
+                                                                <button type="submit" class="btn btn-outline-success btn-sm rounded-pill"><i class="bi bi-check-lg"></i></button>
+                                                            </form>
+                                                            <form method="POST" action="{{ route('mentor.mentorship-requests.update', $request) }}">
+                                                                @csrf @method('PATCH')
+                                                                <input type="hidden" name="status" value="rejected">
+                                                                <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill"><i class="bi bi-x-lg"></i></button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        <div class="text-center py-5">
+                                            <div class="bg-light rounded-circle d-inline-flex mx-auto p-4 mb-3">
+                                                <i class="bi bi-inbox fs-2 text-muted"></i>
+                                            </div>
+                                            <h6 class="fw-bold text-muted">No pending requests</h6>
+                                        </div>
+                                    @endif
+                                </div>
+                                
+                                <!-- Accepted Requests -->
+                                <div class="tab-pane fade" id="accepted" role="tabpanel">
+                                    @if($acceptedRequests->count() > 0)
+                                        <div class="list-group list-group-flush border-top-0">
+                                            @foreach($acceptedRequests as $request)
+                                                <div class="list-group-item border-start-0 border-end-0 px-0 py-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="https://ui-avatars.com/api/?name={{ urlencode($request->student->name) }}&background=random" class="rounded-circle me-3" width="40" height="40" alt="{{ $request->student->name }}">
+                                                        <div>
+                                                            <h6 class="fw-bold mb-1">{{ $request->student->name }}</h6>
+                                                            <p class="text-muted small mb-0 fst-italic">"{{ Str::limit($request->message, 60) }}"</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        <div class="text-center text-muted py-5">No accepted requests yet.</div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reviews -->
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-sm h-100 rounded-4 hover-lift">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h4 class="mb-0 fw-bold">Recent Reviews</h4>
+                                <a href="{{ route('mentor.reviews.index') }}" class="btn btn-outline-secondary btn-sm rounded-pill hover-lift-btn">View All</a>
+                            </div>
+                            
+                            <div class="d-flex align-items-center mb-4 p-4 bg-light rounded-4 shadow-sm border border-light">
+                                <div class="me-4 text-center">
+                                    <h1 class="mb-0 fw-bold text-warning display-4">{{ number_format($averageRating, 1) }}</h1>
+                                </div>
+                                <div>
+                                    <div class="text-warning fs-5 mb-1">
+                                        @for($i = 1; $i <= 5; $i++)
+                                            @if($i <= round($averageRating))
+                                                <i class="bi bi-star-fill"></i>
+                                            @else
+                                                <i class="bi bi-star"></i>
+                                            @endif
+                                        @endfor
                                     </div>
+                                    <span class="text-muted fw-medium">Based on {{ $totalReviews }} review(s)</span>
                                 </div>
-                            @endforeach
-                        </div>
-                    @else
-                        <p class="text-gray-500">No pending requests.</p>
-                    @endif
-
-                    <h3 class="text-xl font-bold mt-8 mb-4">Accepted Requests</h3>
-                    @if($acceptedRequests->count() > 0)
-                        <div class="space-y-4">
-                            @foreach($acceptedRequests as $request)
-                                <div class="border p-4 rounded bg-green-50">
-                                    <p class="font-bold">{{ $request->student->name }}</p>
-                                    <p class="text-gray-700 italic">"{{ $request->message }}"</p>
+                            </div>
+                            
+                            @if(isset($reviews) && $reviews->count() > 0)
+                                <div class="list-group list-group-flush border-top-0">
+                                    @foreach($reviews as $review)
+                                        <div class="list-group-item border-start-0 border-end-0 px-0 py-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <h6 class="mb-0 fw-bold">{{ $review->title }}</h6>
+                                                <small class="text-muted bg-light px-2 py-1 rounded">{{ $review->created_at->diffForHumans() }}</small>
+                                            </div>
+                                            <div class="text-warning small mb-2">
+                                                @for($i = 1; $i <= 5; $i++)
+                                                    <i class="bi bi-star{{ $i <= $review->rating ? '-fill' : '' }}"></i>
+                                                @endfor
+                                            </div>
+                                            <p class="mb-2 small text-secondary">"{{ $review->comment }}"</p>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://ui-avatars.com/api/?name={{ urlencode($review->student->name) }}&background=random" class="rounded-circle me-2" width="20" height="20" alt="{{ $review->student->name }}">
+                                                <small class="text-muted fw-bold">{{ $review->student->name }}</small>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
-                            @endforeach
-                        </div>
-                    @else
-                        <p class="text-gray-500">No accepted requests yet.</p>
-                    @endif
-
-                    <h3 class="text-xl font-bold mt-8 mb-4">Rejected Requests</h3>
-                    @if($rejectedRequests->count() > 0)
-                        <div class="space-y-4">
-                            @foreach($rejectedRequests as $request)
-                                <div class="border p-4 rounded bg-red-50">
-                                    <p class="font-bold">{{ $request->student->name }}</p>
+                            @else
+                                <div class="text-center py-5">
+                                    <div class="bg-light rounded-circle d-inline-flex mx-auto p-4 mb-3">
+                                        <i class="bi bi-star fs-2 text-warning"></i>
+                                    </div>
+                                    <h6 class="fw-bold text-muted">No reviews received yet</h6>
                                 </div>
-                            @endforeach
+                            @endif
                         </div>
-                    @else
-                        <p class="text-gray-500">No rejected requests.</p>
-                    @endif
+                    </div>
                 </div>
             </div>
+            
         </div>
     </div>
+    
+    <!-- Include Bootstrap JS for Tabs -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </x-app-layout>

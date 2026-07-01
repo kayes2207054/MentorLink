@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name', 'MentorLink Admin') }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     <style>
-        body { font-size: .875rem; }
-        .sidebar { min-height: 100vh; box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1); }
-        .sidebar .nav-link { font-weight: 500; color: #333; }
-        .sidebar .nav-link.active { color: #0d6efd; }
+        body { font-family: 'Inter', sans-serif; font-size: .875rem; background-color: #f8f9fa; }
+        .sidebar { min-height: 100vh; box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1); background-color: #ffffff !important; }
+        .sidebar .nav-link { font-weight: 500; color: #495057; padding: 0.8rem 1rem; border-radius: 6px; margin: 0.2rem 0.8rem; transition: all 0.2s; }
+        .sidebar .nav-link:hover { background-color: #f8f9fa; color: #0d6efd; }
+        .sidebar .nav-link.active { color: #0d6efd; background-color: #e9ecef; }
+        .navbar-brand { font-weight: 700; letter-spacing: 0.5px; }
     </style>
 </head>
 <body>

@@ -45,6 +45,10 @@ class AdminDashboardController extends Controller
             ->take(5)
             ->get();
 
+        $recentUsers = User::latest()->take(5)->get();
+        $recentBookings = SessionBooking::with(['student', 'mentor'])->latest()->take(5)->get();
+        $recentReviews = Review::with(['student', 'mentor'])->latest()->take(5)->get();
+
         return view('admin.dashboard', compact(
             'totalStudents',
             'totalMentors',
@@ -59,7 +63,10 @@ class AdminDashboardController extends Controller
             'cancelledSessions',
             'totalReviews',
             'highestRatedMentors',
-            'lowestRatedMentors'
+            'lowestRatedMentors',
+            'recentUsers',
+            'recentBookings',
+            'recentReviews'
         ));
     }
 }

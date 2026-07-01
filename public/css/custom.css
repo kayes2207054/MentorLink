@@ -1,0 +1,83 @@
+/* custom.css - Global Animations and UI Refinements */
+
+/* Animations */
+.hover-lift {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08) !important;
+}
+
+.hover-lift-btn {
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.hover-lift-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Tracking */
+.tracking-wide {
+    letter-spacing: 0.05em;
+}
+
+/* Glassmorphism Navigation */
+.navbar-glass {
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Forms */
+.form-floating > label {
+    padding-left: 1rem;
+}
+.input-group-text {
+    background-color: #f8f9fa;
+    border-right: none;
+}
+.input-group .form-control {
+    border-left: none;
+}
+.input-group .form-control:focus {
+    box-shadow: none;
+    border-color: #dee2e6;
+}
+
+/* Gradients */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+}
+.bg-gradient-dark {
+    background: linear-gradient(135deg, #212529 0%, #343a40 100%);
+}
+
+/* Badges */
+.badge {
+    font-weight: 600;
+}
+
+/* Rounded */
+.rounded-4 {
+    border-radius: 1rem !important;
+}
+.rounded-5 {
+    border-radius: 1.5rem !important;
+}
+
+/* Tables */
+.table > :not(caption) > * > * {
+    padding: 1rem 1rem;
+    vertical-align: middle;
+}
