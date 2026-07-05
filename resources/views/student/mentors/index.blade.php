@@ -26,7 +26,7 @@
                 <div class="card bg-light border-0 mb-5">
                     <div class="card-body p-4">
                         <form method="GET" action="{{ route('student.mentors.index') }}" class="row g-3">
-                            <div class="col-md-5">
+                            <div class="col-md-12 mb-2">
                                 <div class="input-group shadow-sm">
                                     <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
                                     <input type="text" name="search" placeholder="Search by name or keyword..." value="{{ request('search') }}" class="form-control border-start-0 py-2">
@@ -42,18 +42,28 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-2">
+                            <div class="col-md-3">
+                                <select name="min_rating" class="form-select shadow-sm py-2">
+                                    <option value="">Min Rating</option>
+                                    <option value="5" {{ request('min_rating') == '5' ? 'selected' : '' }}>5 Stars</option>
+                                    <option value="4" {{ request('min_rating') == '4' ? 'selected' : '' }}>4+ Stars</option>
+                                    <option value="3" {{ request('min_rating') == '3' ? 'selected' : '' }}>3+ Stars</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-3">
                                 <select name="sort" class="form-select shadow-sm py-2">
                                     <option value="">Newest</option>
                                     <option value="highest_rated" {{ request('sort') == 'highest_rated' ? 'selected' : '' }}>Highest Rated</option>
                                     <option value="most_reviewed" {{ request('sort') == 'most_reviewed' ? 'selected' : '' }}>Most Reviewed</option>
+                                    <option value="alphabetical" {{ request('sort') == 'alphabetical' ? 'selected' : '' }}>Alphabetical A-Z</option>
                                 </select>
                             </div>
 
-                            <div class="col-md-2 d-grid gap-2 d-md-flex">
-                                <button type="submit" class="btn btn-primary px-4 shadow-sm">Filter</button>
-                                @if(request('search') || request('skill') || request('sort'))
-                                    <a href="{{ route('student.mentors.index') }}" class="btn btn-outline-secondary">Clear</a>
+                            <div class="col-md-3 d-grid gap-2 d-md-flex">
+                                <button type="submit" class="btn btn-primary px-3 shadow-sm w-100">Filter</button>
+                                @if(request('search') || request('skill') || request('min_rating') || request('sort'))
+                                    <a href="{{ route('student.mentors.index') }}" class="btn btn-outline-secondary">Reset</a>
                                 @endif
                             </div>
                         </form>

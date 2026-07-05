@@ -43,9 +43,11 @@
                                 
                                 <h6 class="text-uppercase text-muted fw-bold mb-3 text-start"><i class="bi bi-tools me-2"></i>Skills</h6>
                                 <div class="d-flex flex-wrap justify-content-start gap-1">
-                                    @foreach($mentor->mentorProfile->skills as $skill)
+                                    @forelse($mentor->mentorProfile->skills as $skill)
                                         <span class="badge bg-white text-dark border">{{ $skill->name }}</span>
-                                    @endforeach
+                                    @empty
+                                        <span class="text-muted small fst-italic">No skills listed yet.</span>
+                                    @endforelse
                                 </div>
                             </div>
                         </div>
@@ -54,10 +56,18 @@
                         <div class="col-md-8 col-lg-9">
                             <div class="p-5">
                                 <h5 class="fw-bold text-uppercase text-primary mb-3"><i class="bi bi-briefcase me-2"></i>Experience</h5>
-                                <p class="text-secondary mb-5" style="white-space: pre-line;">{{ $mentor->mentorProfile->experience }}</p>
+                                @if($mentor->mentorProfile->experience)
+                                    <p class="text-secondary mb-5" style="white-space: pre-line;">{{ $mentor->mentorProfile->experience }}</p>
+                                @else
+                                    <p class="text-muted fst-italic mb-5">This mentor hasn't added their experience yet.</p>
+                                @endif
 
                                 <h5 class="fw-bold text-uppercase text-primary mb-3"><i class="bi bi-person-lines-fill me-2"></i>Bio</h5>
-                                <p class="text-secondary mb-5" style="white-space: pre-line;">{{ $mentor->mentorProfile->bio }}</p>
+                                @if($mentor->mentorProfile->bio)
+                                    <p class="text-secondary mb-5" style="white-space: pre-line;">{{ $mentor->mentorProfile->bio }}</p>
+                                @else
+                                    <p class="text-muted fst-italic mb-5">This mentor hasn't added a bio yet.</p>
+                                @endif
 
                                 <hr class="my-5">
 

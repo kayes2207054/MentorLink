@@ -7,10 +7,52 @@
 
 <div class="row g-4">
     <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100 bg-primary bg-gradient text-white">
+            <div class="card-body d-flex align-items-center">
+                <div class="me-3">
+                    <i class="bi bi-people display-4 opacity-50"></i>
+                </div>
+                <div>
+                    <h6 class="card-title text-uppercase fw-bold mb-1 opacity-75">Total Users</h6>
+                    <h2 class="mb-0 fw-bold">{{ $totalUsers }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100 bg-info bg-gradient text-white">
+            <div class="card-body d-flex align-items-center">
+                <div class="me-3">
+                    <i class="bi bi-person-check display-4 opacity-50"></i>
+                </div>
+                <div>
+                    <h6 class="card-title text-uppercase fw-bold mb-1 opacity-75">Active Users</h6>
+                    <h2 class="mb-0 fw-bold">{{ $activeUsers }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100 bg-warning bg-gradient text-dark">
+            <div class="card-body d-flex align-items-center">
+                <div class="me-3">
+                    <i class="bi bi-star-fill display-4 opacity-50"></i>
+                </div>
+                <div>
+                    <h6 class="card-title text-uppercase fw-bold mb-1 opacity-75">Avg Platform Rating</h6>
+                    <h2 class="mb-0 fw-bold">{{ number_format($averagePlatformRating, 1) }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
         <div class="card border-0 shadow-sm h-100 bg-primary text-white">
             <div class="card-body d-flex align-items-center">
                 <div class="me-3">
-                    <i class="bi bi-people-fill display-4 opacity-50"></i>
+                    <i class="bi bi-person-badge display-4 opacity-50"></i>
                 </div>
                 <div>
                     <h6 class="card-title text-uppercase fw-bold mb-1 opacity-75">Total Students</h6>
@@ -50,6 +92,20 @@
     
     <div class="col-md-4">
         <div class="card border-0 shadow-sm h-100 bg-warning text-dark">
+            <div class="card-body d-flex align-items-center">
+                <div class="me-3">
+                    <i class="bi bi-envelope-paper display-4 opacity-50"></i>
+                </div>
+                <div>
+                    <h6 class="card-title text-uppercase fw-bold mb-1 opacity-75">Total Requests</h6>
+                    <h2 class="mb-0 fw-bold">{{ $totalRequests }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100 bg-secondary text-white">
             <div class="card-body d-flex align-items-center">
                 <div class="me-3">
                     <i class="bi bi-hourglass-split display-4 opacity-50"></i>

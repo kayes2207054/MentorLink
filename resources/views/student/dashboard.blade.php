@@ -18,10 +18,29 @@
                 </div>
             @endif
 
-            <!-- Dashboard Header -->
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h3 class="fw-bold mb-0 text-gray-800">My Bookings</h3>
+            <!-- Mentorship Requests Stats -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="fw-bold mb-0 text-gray-800">Mentorship Requests</h4>
                 <a href="{{ route('student.mentors.index') }}" class="btn btn-primary shadow-sm hover-lift-btn rounded-pill px-4"><i class="bi bi-search me-2"></i>Find a Mentor</a>
+            </div>
+            <div class="row g-4 mb-4">
+                <div class="col-md-3">
+                    <x-stat-card title="Total Sent" :value="$totalRequests" icon="send" color="primary" />
+                </div>
+                <div class="col-md-3">
+                    <x-stat-card title="Pending" :value="$pendingRequests" icon="hourglass" color="warning" />
+                </div>
+                <div class="col-md-3">
+                    <x-stat-card title="Accepted" :value="$acceptedRequests" icon="check-circle" color="success" />
+                </div>
+                <div class="col-md-3">
+                    <x-stat-card title="Pending Reviews" :value="$pendingReviewsCount" icon="star-half" color="info" />
+                </div>
+            </div>
+
+            <!-- Dashboard Header (Bookings) -->
+            <div class="d-flex justify-content-between align-items-center mb-3 mt-4">
+                <h4 class="fw-bold mb-0 text-gray-800">My Bookings</h4>
             </div>
 
             <!-- Stats Row -->

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -27,11 +28,17 @@ class MentorDirectoryController extends Controller
             });
         }
 
+        if ($request->filled('min_rating')) {
+            $query->having('reviews_received_avg_rating', '>=', $request->min_rating);
+        }
+
         if ($request->filled('sort')) {
             if ($request->sort === 'highest_rated') {
                 $query->orderBy('reviews_received_avg_rating', 'desc');
             } elseif ($request->sort === 'most_reviewed') {
                 $query->orderBy('reviews_received_count', 'desc');
+            } elseif ($request->sort === 'alphabetical') {
+                $query->orderBy('name', 'asc');
             } else {
                 $query->latest();
             }
@@ -42,8 +49,9 @@ class MentorDirectoryController extends Controller
         $mentors = $query->with(['mentorProfile.skills'])->paginate(10)->withQueryString();
 
         $skills = Skill::all();
+        $departments = Department::all();
 
-        return view('student.mentors.index', compact('mentors', 'skills'));
+        return view('student.mentors.index', compact('mentors', 'skills', 'departments'));
     }
 
     public function show(User $mentor)

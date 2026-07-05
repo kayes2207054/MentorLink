@@ -15,9 +15,13 @@ class AdminDashboardController extends Controller
 {
     public function index()
     {
+        $totalUsers = User::count();
+        $activeUsers = User::where('is_active', true)->count();
         $totalStudents = User::where('role', User::ROLE_STUDENT)->count();
         $totalMentors = User::where('role', User::ROLE_MENTOR)->count();
         $verifiedMentors = MentorProfile::where('is_verified', true)->count();
+
+        $totalRequests = MentorshipRequest::count();
         $pendingRequests = MentorshipRequest::where('status', 'pending')->count();
         $totalDepartments = Department::count();
         $totalSkills = Skill::count();
@@ -29,6 +33,8 @@ class AdminDashboardController extends Controller
         $cancelledSessions = SessionBooking::where('status', 'cancelled')->count();
 
         $totalReviews = Review::count();
+        $averagePlatformRating = Review::avg('rating') ?? 0;
+
         $highestRatedMentors = User::where('role', User::ROLE_MENTOR)
             ->withAvg('reviewsReceived', 'rating')
             ->withCount('reviewsReceived')
@@ -50,9 +56,12 @@ class AdminDashboardController extends Controller
         $recentReviews = Review::with(['student', 'mentor'])->latest()->take(5)->get();
 
         return view('admin.dashboard', compact(
+            'totalUsers',
+            'activeUsers',
             'totalStudents',
             'totalMentors',
             'verifiedMentors',
+            'totalRequests',
             'pendingRequests',
             'totalDepartments',
             'totalSkills',
@@ -62,6 +71,7 @@ class AdminDashboardController extends Controller
             'completedSessions',
             'cancelledSessions',
             'totalReviews',
+            'averagePlatformRating',
             'highestRatedMentors',
             'lowestRatedMentors',
             'recentUsers',

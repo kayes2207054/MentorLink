@@ -22,76 +22,105 @@
                 @endif
 
                 @if($bookings->isEmpty())
-                    <div class="alert alert-info">You have no session bookings yet.</div>
-                @else
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th>Student</th>
-                                    <th>Date</th>
-                                    <th>Time</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($bookings as $booking)
-                                    <tr>
-                                        <td>{{ $booking->student->name }}</td>
-                                        <td>{{ $booking->booking_date->format('M d, Y') }} ({{ $booking->availability->day_of_week }})</td>
-                                        <td>{{ \Carbon\Carbon::parse($booking->availability->start_time)->format('h:i A') }} - {{ \Carbon\Carbon::parse($booking->availability->end_time)->format('h:i A') }}</td>
-                                        <td>
-                                            @if($booking->status == 'pending')
-                                                <span class="badge bg-warning text-dark">Pending</span>
-                                            @elseif($booking->status == 'accepted')
-                                                <span class="badge bg-success">Accepted</span>
-                                            @elseif($booking->status == 'rejected')
-                                                <span class="badge bg-danger">Rejected</span>
-                                            @elseif($booking->status == 'cancelled')
-                                                <span class="badge bg-secondary">Cancelled</span>
-                                            @else
-                                                <span class="badge bg-primary">Completed</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if($booking->status == 'pending')
-                                                <form action="{{ route('mentor.bookings.updateStatus', $booking) }}" method="POST" class="d-inline">
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <input type="hidden" name="status" value="accepted">
-                                                    <button class="btn btn-sm btn-success">Accept</button>
-                                                </form>
-                                                <form action="{{ route('mentor.bookings.updateStatus', $booking) }}" method="POST" class="d-inline">
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <input type="hidden" name="status" value="rejected">
-                                                    <button class="btn btn-sm btn-danger">Reject</button>
-                                                </form>
-                                            @elseif($booking->status == 'accepted')
-                                                <form action="{{ route('mentor.bookings.updateStatus', $booking) }}" method="POST" class="d-inline">
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <input type="hidden" name="status" value="completed">
-                                                    <button class="btn btn-sm btn-primary">Mark Completed</button>
-                                                </form>
-                                                <form action="{{ route('mentor.bookings.updateStatus', $booking) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure?')">
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <input type="hidden" name="status" value="cancelled">
-                                                    <button class="btn btn-sm btn-secondary">Cancel</button>
-                                                </form>
-                                            @else
-                                                <span class="text-muted">No actions</span>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                    <div class="text-center py-5 bg-light rounded-4 border border-dashed hover-lift">
+                        <div class="bg-white rounded-circle d-inline-flex mx-auto p-4 mb-3 shadow-sm">
+                            <i class="bi bi-calendar-x fs-1 text-muted"></i>
+                        </div>
+                        <h5 class="fw-bold">No bookings found</h5>
+                        <p class="text-muted mb-0">You have no session bookings yet.</p>
                     </div>
-                    
-                    {{ $bookings->links() }}
+                @else
+                    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th class="ps-4">Student</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Status</th>
+                                            <th class="text-end pe-4">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($bookings as $booking)
+                                            <tr>
+                                                <td class="ps-4">
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="https://ui-avatars.com/api/?name={{ urlencode($booking->student->name) }}&background=random" class="rounded-circle me-3" width="40" height="40" alt="{{ $booking->student->name }}">
+                                                        <span class="fw-medium">{{ $booking->student->name }}</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="fw-medium">{{ $booking->booking_date->format('M d, Y') }}</div>
+                                                    <small class="text-muted">{{ $booking->availability->day_of_week }}</small>
+                                                </td>
+                                                <td>
+                                                    <small class="text-muted">
+                                                        {{ \Carbon\Carbon::parse($booking->availability->start_time)->format('h:i A') }} - {{ \Carbon\Carbon::parse($booking->availability->end_time)->format('h:i A') }}
+                                                    </small>
+                                                </td>
+                                                <td>
+                                                    @if($booking->status == 'pending')
+                                                        <span class="badge bg-warning bg-opacity-25 text-dark border border-warning rounded-pill px-3 py-2">Pending</span>
+                                                    @elseif($booking->status == 'accepted')
+                                                        <span class="badge bg-success bg-opacity-10 text-success border border-success rounded-pill px-3 py-2">Accepted</span>
+                                                    @elseif($booking->status == 'rejected')
+                                                        <span class="badge bg-danger bg-opacity-10 text-danger border border-danger rounded-pill px-3 py-2">Rejected</span>
+                                                    @elseif($booking->status == 'cancelled')
+                                                        <span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary rounded-pill px-3 py-2">Cancelled</span>
+                                                    @else
+                                                        <span class="badge bg-primary bg-opacity-10 text-primary border border-primary rounded-pill px-3 py-2">Completed</span>
+                                                    @endif
+                                                </td>
+                                                <td class="text-end pe-4">
+                                                    @if($booking->status == 'pending')
+                                                        <div class="d-flex justify-content-end gap-2">
+                                                            <form action="{{ route('mentor.bookings.updateStatus', $booking) }}" method="POST">
+                                                                @csrf
+                                                                @method('PATCH')
+                                                                <input type="hidden" name="status" value="accepted">
+                                                                <button class="btn btn-sm btn-outline-success rounded-pill px-3"><i class="bi bi-check-lg me-1"></i>Accept</button>
+                                                            </form>
+                                                            <form action="{{ route('mentor.bookings.updateStatus', $booking) }}" method="POST">
+                                                                @csrf
+                                                                @method('PATCH')
+                                                                <input type="hidden" name="status" value="rejected">
+                                                                <button class="btn btn-sm btn-outline-danger rounded-pill px-3"><i class="bi bi-x-lg me-1"></i>Reject</button>
+                                                            </form>
+                                                        </div>
+                                                    @elseif($booking->status == 'accepted')
+                                                        <div class="d-flex justify-content-end gap-2">
+                                                            <form action="{{ route('mentor.bookings.updateStatus', $booking) }}" method="POST">
+                                                                @csrf
+                                                                @method('PATCH')
+                                                                <input type="hidden" name="status" value="completed">
+                                                                <button class="btn btn-sm btn-primary rounded-pill px-3"><i class="bi bi-check2-all me-1"></i>Mark Completed</button>
+                                                            </form>
+                                                            <form action="{{ route('mentor.bookings.updateStatus', $booking) }}" method="POST" onsubmit="return confirm('Are you sure you want to cancel this booking?')">
+                                                                @csrf
+                                                                @method('PATCH')
+                                                                <input type="hidden" name="status" value="cancelled">
+                                                                <button class="btn btn-sm btn-outline-secondary rounded-pill px-3"><i class="bi bi-slash-circle me-1"></i>Cancel</button>
+                                                            </form>
+                                                        </div>
+                                                    @else
+                                                        <span class="text-muted small fst-italic">No actions</span>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        @if($bookings->hasPages())
+                            <div class="card-footer bg-white border-top-0 pt-3">
+                                {{ $bookings->links('pagination::bootstrap-5') }}
+                            </div>
+                        @endif
+                    </div>
                 @endif
 
             </div>

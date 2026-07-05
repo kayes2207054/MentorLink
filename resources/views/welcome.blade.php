@@ -239,7 +239,7 @@
                             <i class="bi bi-search fs-1"></i>
                         </div>
                         <h4 class="fw-bold mb-3">Smart Discovery</h4>
-                        <p class="text-muted mb-0">Easily find mentors by department, skills, or top ratings with our advanced directory.</p>
+                        <p class="text-muted mb-0">Easily find mentors by expertise, specific skills, or top ratings with our advanced directory.</p>
                     </div>
                 </div>
                 <div class="col-md-4">

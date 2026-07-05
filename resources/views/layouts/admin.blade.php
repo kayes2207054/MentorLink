@@ -63,6 +63,11 @@
                                 <i class="bi bi-tools"></i> Skills
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.reviews.*') ? 'active' : '' }}" href="{{ route('admin.reviews.index') }}">
+                                <i class="bi bi-star"></i> Reviews
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>

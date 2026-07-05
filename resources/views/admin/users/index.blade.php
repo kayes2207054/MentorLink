@@ -8,7 +8,7 @@
 <div class="card border-0 shadow-sm mb-4">
     <div class="card-body p-4">
         <form method="GET" action="{{ route('admin.users.index') }}" class="row g-3 align-items-center">
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div class="input-group">
                     <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
                     <input type="text" name="search" class="form-control border-start-0" placeholder="Search by name or email..." value="{{ request('search') }}">
@@ -22,9 +22,16 @@
                     <option value="student" {{ request('role') == 'student' ? 'selected' : '' }}>Student</option>
                 </select>
             </div>
-            <div class="col-md-4 d-flex gap-2">
-                <button type="submit" class="btn btn-primary px-4"><i class="bi bi-funnel me-1"></i>Filter</button>
-                @if(request('search') || request('role'))
+            <div class="col-md-3">
+                <select name="status" class="form-select">
+                    <option value="">All Statuses</option>
+                    <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
+                    <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                </select>
+            </div>
+            <div class="col-md-2 d-grid gap-2 d-md-flex">
+                <button type="submit" class="btn btn-primary px-3 shadow-sm w-100">Filter</button>
+                @if(request('search') || request('role') || request('status'))
                     <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary">Clear</a>
                 @endif
             </div>

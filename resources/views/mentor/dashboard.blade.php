@@ -26,7 +26,26 @@
                 </div>
             </div>
 
-            <!-- Stats Row -->
+            <!-- Mentorship & Activity Stats -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="fw-bold mb-0 text-gray-800">Mentorship Activity</h4>
+            </div>
+            <div class="row g-4 mb-4">
+                <div class="col-md-4">
+                    <x-stat-card title="Total Requests" :value="$totalRequests" icon="inbox" color="primary" />
+                </div>
+                <div class="col-md-4">
+                    <x-stat-card title="Pending Requests" :value="$pendingRequests->count()" icon="hourglass" color="warning" />
+                </div>
+                <div class="col-md-4">
+                    <x-stat-card title="Availability Slots" :value="$availabilitySlotCount" icon="clock-history" color="success" />
+                </div>
+            </div>
+
+            <!-- Bookings Stats Row -->
+            <div class="d-flex justify-content-between align-items-center mb-3 mt-4">
+                <h4 class="fw-bold mb-0 text-gray-800">Session Bookings</h4>
+            </div>
             <div class="row g-4 mb-5">
                 <div class="col-md-3">
                     <x-stat-card title="Today" :value="$todayBookings->count()" icon="calendar-day" color="primary" />

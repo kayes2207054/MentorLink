@@ -9,9 +9,22 @@ use Illuminate\Http\Request;
 
 class AdminMentorController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $mentors = User::where('role', User::ROLE_MENTOR)->with('mentorProfile')->paginate(15);
+        $query = User::where('role', User::ROLE_MENTOR)->with('mentorProfile');
+
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%'.$request->search.'%');
+        }
+
+        if ($request->filled('status')) {
+            $isVerified = $request->status === 'verified';
+            $query->whereHas('mentorProfile', function ($q) use ($isVerified) {
+                $q->where('is_verified', $isVerified);
+            });
+        }
+
+        $mentors = $query->paginate(15)->withQueryString();
 
         return view('admin.mentors.index', compact('mentors'));
     }

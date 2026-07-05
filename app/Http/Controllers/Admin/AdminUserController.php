@@ -23,6 +23,10 @@ class AdminUserController extends Controller
             $query->where('role', $request->role);
         }
 
+        if ($request->filled('status')) {
+            $query->where('is_active', $request->status === 'active');
+        }
+
         $users = $query->paginate(15)->withQueryString();
 
         return view('admin.users.index', compact('users'));

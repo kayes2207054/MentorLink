@@ -7,11 +7,13 @@ use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Mentor\AvailabilityController;
+use App\Http\Controllers\Mentor\MentorDashboardController;
 use App\Http\Controllers\Mentor\SessionBookingController;
 use App\Http\Controllers\MentorDirectoryController;
 use App\Http\Controllers\MentorProfileController;
 use App\Http\Controllers\MentorshipRequestController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Student\StudentDashboardController;
 use App\Http\Controllers\StudentProfileController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -42,30 +44,8 @@ Route::middleware(['auth', 'verified', 'role:'.User::ROLE_ADMIN])->prefix('admin
 });
 
 // Mentor Dashboard
-Route::get('/mentor/dashboard', function () {
-    $requests = request()->user()->receivedMentorshipRequests()->with('student.studentProfile')->latest()->get();
-    $pendingRequests = $requests->where('status', 'pending');
-    $acceptedRequests = $requests->where('status', 'accepted');
-    $rejectedRequests = $requests->where('status', 'rejected');
-
-    // Bookings
-    $bookings = request()->user()->mentorSessions()->with('student')->latest()->get();
-    $todayBookings = $bookings->where('booking_date', now()->toDateString());
-    $upcomingBookings = $bookings->where('booking_date', '>', now()->toDateString())->where('status', 'accepted');
-    $pendingBookings = $bookings->where('status', 'pending');
-    $completedBookings = $bookings->where('status', 'completed');
-
-    $reviews = request()->user()->reviewsReceived()->with('student')->latest()->take(5)->get();
-
-    $averageRating = request()->user()->mentorProfile->averageRating() ?? 0;
-    $totalReviews = request()->user()->mentorProfile->totalReviews() ?? 0;
-
-    return view('mentor.dashboard', compact(
-        'pendingRequests', 'acceptedRequests', 'rejectedRequests',
-        'bookings', 'todayBookings', 'upcomingBookings', 'pendingBookings', 'completedBookings',
-        'reviews', 'averageRating', 'totalReviews'
-    ));
-})->middleware(['auth', 'verified', 'role:'.User::ROLE_MENTOR])->name('mentor.dashboard');
+Route::get('/mentor/dashboard', [MentorDashboardController::class, 'index'])
+    ->middleware(['auth', 'verified', 'role:'.User::ROLE_MENTOR])->name('mentor.dashboard');
 
 // Mentor Group
 Route::middleware(['auth', 'verified', 'role:'.User::ROLE_MENTOR])->prefix('mentor')->name('mentor.')->group(function () {
@@ -86,19 +66,8 @@ Route::middleware(['auth', 'verified', 'role:'.User::ROLE_MENTOR])->prefix('ment
 });
 
 // Student Dashboard
-Route::get('/student/dashboard', function () {
-    $bookings = request()->user()->bookedSessions()->with('mentor.mentorProfile')->latest()->get();
-    $upcomingBookings = $bookings->where('booking_date', '>=', now()->toDateString())->where('status', 'accepted');
-    $pendingBookings = $bookings->where('status', 'pending');
-    $completedBookings = $bookings->where('status', 'completed');
-    $cancelledBookings = $bookings->where('status', 'cancelled');
-
-    // To review
-    $sessionsAwaitingReview = request()->user()->bookedSessions()->where('status', 'completed')->doesntHave('review')->with('mentor')->get();
-    $submittedReviews = request()->user()->reviewsGiven()->with('mentor', 'sessionBooking')->latest()->get();
-
-    return view('student.dashboard', compact('bookings', 'upcomingBookings', 'pendingBookings', 'completedBookings', 'cancelledBookings', 'sessionsAwaitingReview', 'submittedReviews'));
-})->middleware(['auth', 'verified', 'role:'.User::ROLE_STUDENT])->name('student.dashboard');
+Route::get('/student/dashboard', [StudentDashboardController::class, 'index'])
+    ->middleware(['auth', 'verified', 'role:'.User::ROLE_STUDENT])->name('student.dashboard');
 
 // Student Group
 Route::middleware(['auth', 'verified', 'role:'.User::ROLE_STUDENT])->prefix('student')->name('student.')->group(function () {
