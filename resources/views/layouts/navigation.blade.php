@@ -1,11 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-glass sticky-top" style="height:64px;">
-    <div class="container-xl">
+<nav class="navbar navbar-expand-lg navbar-glass sticky-top" style="height:72px;">
+    <div class="container-xl px-4">
 
         {{-- Logo / Brand --}}
         <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('dashboard') }}">
-            <span class="d-inline-flex align-items-center justify-content-center rounded-3 shadow-sm"
-                  style="width:34px;height:34px;background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 100%);">
-                <i class="bi bi-mortarboard-fill text-white" style="font-size:.95rem;"></i>
+            <span class="logo-icon">
+                <i class="bi bi-mortarboard-fill" style="font-size:1.1rem;"></i>
             </span>
             <span>MentorLink</span>
         </a>
@@ -19,12 +18,12 @@
 
         {{-- Links --}}
         <div class="collapse navbar-collapse" id="navbarContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                 <li class="nav-item">
                     <a id="nav-dashboard"
                        class="nav-link {{ request()->routeIs('dashboard') || request()->routeIs('student.dashboard') || request()->routeIs('mentor.dashboard') ? 'active' : '' }}"
                        href="{{ route('dashboard') }}">
-                        <i class="bi bi-house-door me-1"></i>Dashboard
+                        <i class="bi bi-grid me-1"></i>Dashboard
                     </a>
                 </li>
 
@@ -43,14 +42,14 @@
                             <a id="nav-availability"
                                class="nav-link {{ request()->routeIs('mentor.availabilities.*') ? 'active' : '' }}"
                                href="{{ route('mentor.availabilities.index') }}">
-                                <i class="bi bi-calendar-week me-1"></i>Availability
+                                <i class="bi bi-calendar3-week me-1"></i>Availability
                             </a>
                         </li>
                         <li class="nav-item">
                             <a id="nav-bookings"
                                class="nav-link {{ request()->routeIs('mentor.bookings.*') ? 'active' : '' }}"
                                href="{{ route('mentor.bookings.index') }}">
-                                <i class="bi bi-calendar-check me-1"></i>Bookings
+                                <i class="bi bi-journal-check me-1"></i>Bookings
                             </a>
                         </li>
                         <li class="nav-item">
@@ -74,7 +73,7 @@
             </ul>
 
             {{-- Right Side --}}
-            <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-2">
                 @auth
                     {{-- Role badge --}}
                     @php
@@ -84,41 +83,36 @@
                             default                         => ['Student', 'primary'],
                         };
                     @endphp
-                    <li class="nav-item d-none d-lg-flex align-items-center me-1">
-                        <span class="badge rounded-pill bg-{{ $roleLabel[1] }} bg-opacity-10 text-{{ $roleLabel[1] }} border border-{{ $roleLabel[1] }}-subtle px-2 py-1"
-                              style="font-size:.72rem;font-weight:700;">
+                    <li class="nav-item d-none d-lg-flex align-items-center me-2">
+                        <span class="badge bg-{{ $roleLabel[1] }} bg-opacity-10 text-{{ $roleLabel[1] }} border border-{{ $roleLabel[1] }}-subtle">
                             {{ $roleLabel[0] }}
                         </span>
                     </li>
 
                     {{-- User Dropdown --}}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle p-0 border-0 bg-transparent d-flex align-items-center" href="#"
+                        <a class="nav-link dropdown-toggle p-0 border-0 bg-transparent d-flex align-items-center text-decoration-none" href="#"
                            id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="nav-user-chip">
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=4f46e5&color=fff&size=56"
-                                     alt="{{ Auth::user()->name }}" class="nav-user-avatar">
-                                <span class="d-none d-md-inline">{{ Str::words(Auth::user()->name, 1, '') }}</span>
-                                <i class="bi bi-chevron-down" style="font-size:.7rem;"></i>
-                            </span>
+                            <div class="nav-user-chip d-flex align-items-center gap-2">
+                                <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=e0e7ff&color=4f46e5&size=56"
+                                     alt="{{ Auth::user()->name }}" class="rounded-circle" style="width:32px; height:32px;">
+                                <span class="d-none d-md-inline pe-1">{{ Str::words(Auth::user()->name, 2, '') }}</span>
+                            </div>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="userDropdown">
-                            <li class="px-3 pt-2 pb-1">
-                                <p class="mb-0 fw-bold small text-dark">{{ Auth::user()->name }}</p>
-                                <p class="mb-0 text-muted" style="font-size:.75rem;">{{ Auth::user()->email }}</p>
+                        <ul class="dropdown-menu dropdown-menu-end mt-2 shadow-lg border-0" style="border-radius:1rem;" aria-labelledby="userDropdown">
+                            <li class="px-4 py-2 border-bottom border-soft mb-1">
+                                <p class="mb-0 fw-bold text-dark font-heading">{{ Auth::user()->name }}</p>
+                                <p class="mb-0 text-muted small">{{ Auth::user()->email }}</p>
                             </li>
-                            <li><hr class="dropdown-divider my-2"></li>
                             <li>
-                                <a id="nav-profile" class="dropdown-item" href="{{ route('profile.edit') }}">
-                                    <i class="bi bi-person-circle me-2 text-muted"></i>My Profile
+                                <a id="nav-profile" class="dropdown-item py-2 px-4" href="{{ route('profile.edit') }}">
+                                    <i class="bi bi-person me-2"></i>My Profile
                                 </a>
                             </li>
-                            <li><hr class="dropdown-divider my-1"></li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <button type="submit" id="nav-logout"
-                                            class="dropdown-item text-danger fw-medium">
+                                    <button type="submit" id="nav-logout" class="dropdown-item text-danger py-2 px-4">
                                         <i class="bi bi-box-arrow-right me-2"></i>Log Out
                                     </button>
                                 </form>
@@ -128,11 +122,11 @@
 
                 @else
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">Log in</a>
+                        <a class="nav-link fw-semibold" href="{{ route('login') }}">Log in</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-primary rounded-pill px-4 ms-1" href="{{ route('register') }}">
-                            Get Started
+                        <a class="btn btn-primary shadow-sm px-4 ms-2" href="{{ route('register') }}">
+                            Get Started Free
                         </a>
                     </li>
                 @endauth
