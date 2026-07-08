@@ -1,33 +1,25 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Manage Bookings') }}
-        </h2>
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div>
+                <h2 class="mb-0 text-white">
+                    <i class="bi bi-calendar-check me-2 opacity-75"></i>Session Bookings
+                </h2>
+                <p class="mb-0 mt-1 text-white opacity-75 small">
+                    Manage all your student session requests
+                </p>
+            </div>
+        </div>
     </x-slot>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bootstrap-wrapper">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                
-                <h3 class="mb-4">Session Bookings</h3>
-
-                @if(session('success'))
-                    <div class="alert alert-success">{{ session('success') }}</div>
-                @endif
-                
-                @if(session('error'))
-                    <div class="alert alert-danger">{{ session('error') }}</div>
-                @endif
+    <div class="fade-in">
+        <div>
 
                 @if($bookings->isEmpty())
-                    <div class="text-center py-5 bg-light rounded-4 border border-dashed hover-lift">
-                        <div class="bg-white rounded-circle d-inline-flex mx-auto p-4 mb-3 shadow-sm">
-                            <i class="bi bi-calendar-x fs-1 text-muted"></i>
-                        </div>
-                        <h5 class="fw-bold">No bookings found</h5>
-                        <p class="text-muted mb-0">You have no session bookings yet.</p>
+                    <div class="empty-state" id="empty-bookings">
+                        <div class="empty-state-icon"><i class="bi bi-calendar-x"></i></div>
+                        <h5>No Bookings Yet</h5>
+                        <p>You have no session bookings yet. They'll appear here once students start booking sessions.</p>
                     </div>
                 @else
                     <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
@@ -63,15 +55,15 @@
                                                 </td>
                                                 <td>
                                                     @if($booking->status == 'pending')
-                                                        <span class="badge bg-warning bg-opacity-25 text-dark border border-warning rounded-pill px-3 py-2">Pending</span>
+                                                        <span class="badge badge-status-pending rounded-pill px-3 py-2"><i class="bi bi-clock me-1"></i>Pending</span>
                                                     @elseif($booking->status == 'accepted')
-                                                        <span class="badge bg-success bg-opacity-10 text-success border border-success rounded-pill px-3 py-2">Accepted</span>
+                                                        <span class="badge badge-status-accepted rounded-pill px-3 py-2"><i class="bi bi-check-circle me-1"></i>Accepted</span>
                                                     @elseif($booking->status == 'rejected')
-                                                        <span class="badge bg-danger bg-opacity-10 text-danger border border-danger rounded-pill px-3 py-2">Rejected</span>
+                                                        <span class="badge badge-status-rejected rounded-pill px-3 py-2"><i class="bi bi-x-circle me-1"></i>Rejected</span>
                                                     @elseif($booking->status == 'cancelled')
-                                                        <span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary rounded-pill px-3 py-2">Cancelled</span>
+                                                        <span class="badge badge-status-cancelled rounded-pill px-3 py-2"><i class="bi bi-slash-circle me-1"></i>Cancelled</span>
                                                     @else
-                                                        <span class="badge bg-primary bg-opacity-10 text-primary border border-primary rounded-pill px-3 py-2">Completed</span>
+                                                        <span class="badge badge-status-completed rounded-pill px-3 py-2"><i class="bi bi-check2-all me-1"></i>Completed</span>
                                                     @endif
                                                 </td>
                                                 <td class="text-end pe-4">
@@ -123,7 +115,6 @@
                     </div>
                 @endif
 
-            </div>
         </div>
     </div>
 </x-app-layout>

@@ -1,21 +1,32 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Leave a Review') }}
-        </h2>
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div>
+                <h2 class="mb-0 text-white">
+                    <i class="bi bi-star me-2 opacity-75"></i>Write a Review
+                </h2>
+                <p class="mb-0 mt-1 text-white opacity-75 small">
+                    Session with <strong>{{ $booking->mentor->name }}</strong> &mdash; {{ $booking->booking_date->format('M d, Y') }}
+                </p>
+            </div>
+        </div>
     </x-slot>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bootstrap-wrapper">
-            <div class="row justify-content-center mt-4">
-                <div class="col-lg-8">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-header bg-white border-0 pt-4 pb-2">
-                            <h4 class="fw-bold mb-1"><i class="bi bi-star-fill text-warning me-2"></i>Review for {{ $booking->mentor->name }}</h4>
-                            <p class="text-muted small mb-0"><i class="bi bi-calendar3 me-1"></i>Session Date: {{ $booking->booking_date->format('M d, Y') }}</p>
+    <div class="fade-in">
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-xl-6">
+                <div class="card card-elevated">
+                    <div class="card-header bg-white px-4 py-3 border-bottom border-soft d-flex align-items-center gap-3">
+                        <img src="https://ui-avatars.com/api/?name={{ urlencode($booking->mentor->name) }}&background=4f46e5&color=fff&size=80"
+                             class="rounded-circle" width="44" height="44" alt="{{ $booking->mentor->name }}">
+                        <div>
+                            <h5 class="fw-bold mb-0">{{ $booking->mentor->name }}</h5>
+                            <small class="text-muted">
+                                <i class="bi bi-calendar3 me-1"></i>
+                                Session on {{ $booking->booking_date->format('M d, Y') }}
+                            </small>
                         </div>
+                    </div>
                         <div class="card-body p-4">
                             <form action="{{ route('student.reviews.store', $booking) }}" method="POST" novalidate>
                                 @csrf
@@ -59,10 +70,9 @@
                                     <a href="{{ route('student.dashboard') }}" class="btn btn-light px-4">Cancel</a>
                                 </div>
                             </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                            </div>{{-- card-body --}}
+                    </div>{{-- card --}}
+            </div>{{-- col --}}
+        </div>{{-- row --}}
+    </div>{{-- fade-in --}}
 </x-app-layout>

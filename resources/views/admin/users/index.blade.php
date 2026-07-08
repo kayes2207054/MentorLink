@@ -1,11 +1,14 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Users Management</h1>
+<div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-soft">
+    <div>
+        <h4 class="fw-bold mb-0">Users Management</h4>
+        <p class="text-muted small mb-0">View, filter, and manage all platform users</p>
+    </div>
 </div>
 
-<div class="card border-0 shadow-sm mb-4">
+<div class="card border-0 shadow-sm mb-4" style="border-radius:1rem!important;">
     <div class="card-body p-4">
         <form method="GET" action="{{ route('admin.users.index') }}" class="row g-3 align-items-center">
             <div class="col-md-4">
@@ -39,7 +42,7 @@
     </div>
 </div>
 
-<div class="card border-0 shadow-sm">
+<div class="card border-0 shadow-sm" style="border-radius:1rem!important;">
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">

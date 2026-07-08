@@ -1,19 +1,24 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">All Reviews</h1>
+
+<div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-soft">
+    <div>
+        <h4 class="fw-bold mb-0">All Reviews</h4>
+        <p class="text-muted small mb-0">Monitor and moderate student reviews across the platform</p>
+    </div>
+    <span class="badge rounded-pill px-3 py-2 fw-bold"
+          style="background:#fef3c7;color:#92400e;font-size:.78rem;">
+        <i class="bi bi-star-fill me-1" style="color:#f59e0b;"></i>
+        {{ $reviews->total() }} reviews total
+    </span>
 </div>
 
-@if(session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
-@endif
-
-<div class="card border-0 shadow-sm">
+<div class="card border-0 shadow-sm" style="border-radius:1rem!important;">
     <div class="card-body p-0">
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="table-light">
+            <table class="table table-hover mb-0" id="admin-reviews-table">
+                <thead>
                     <tr>
                         <th class="ps-4">Date</th>
                         <th>Mentor</th>
@@ -26,28 +31,64 @@
                 <tbody>
                     @forelse($reviews as $review)
                         <tr>
-                            <td class="ps-4">{{ $review->created_at->format('M d, Y') }}</td>
-                            <td>{{ $review->mentor->name }}</td>
-                            <td>{{ $review->student->name }}</td>
-                            <td><span class="text-warning">{{ str_repeat('⭐', $review->rating) }}</span> ({{ $review->rating }})</td>
+                            <td class="ps-4">
+                                <small class="text-muted">
+                                    <i class="bi bi-calendar3 me-1"></i>
+                                    {{ $review->created_at->format('M d, Y') }}
+                                </small>
+                            </td>
                             <td>
-                                <strong>{{ $review->title }}</strong><br>
-                                <span class="text-muted small">{{ Str::limit($review->comment, 50) }}</span>
+                                <div class="d-flex align-items-center gap-2">
+                                    <img src="https://ui-avatars.com/api/?name={{ urlencode($review->mentor->name) }}&background=random&size=60"
+                                         class="rounded-circle" width="30" height="30" alt="{{ $review->mentor->name }}">
+                                    <span class="fw-medium small">{{ $review->mentor->name }}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <img src="https://ui-avatars.com/api/?name={{ urlencode($review->student->name) }}&background=random&size=60"
+                                         class="rounded-circle" width="30" height="30" alt="{{ $review->student->name }}">
+                                    <span class="fw-medium small">{{ $review->student->name }}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="star-rating" style="font-size:.8rem;">
+                                        @for($i = 1; $i <= 5; $i++)
+                                            <i class="bi bi-star{{ $i <= $review->rating ? '-fill' : '' }}"></i>
+                                        @endfor
+                                    </div>
+                                    <span class="fw-bold small">{{ $review->rating }}/5</span>
+                                </div>
+                            </td>
+                            <td style="max-width:220px;">
+                                <div class="fw-semibold small text-truncate" title="{{ $review->title }}">
+                                    {{ $review->title }}
+                                </div>
+                                <small class="text-muted">{{ Str::limit($review->comment, 55) }}</small>
                             </td>
                             <td class="text-end pe-4">
-                                <form action="{{ route('admin.reviews.destroy', $review) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this review?')">
+                                <form action="{{ route('admin.reviews.destroy', $review) }}" method="POST"
+                                      id="delete-review-{{ $review->id }}"
+                                      onsubmit="return confirm('Are you sure you want to permanently delete this review?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash me-1"></i>Delete</button>
+                                    <button type="submit"
+                                            class="btn btn-sm btn-outline-danger rounded-pill px-3">
+                                        <i class="bi bi-trash me-1"></i>Delete
+                                    </button>
                                 </form>
                             </td>
                         </tr>
                     @empty
                         <tr>
                             <td colspan="6">
-                                <div class="text-center py-5 text-muted">
-                                    <i class="bi bi-chat-left-quote fs-1 mb-3 d-block"></i>
-                                    <h5>No reviews found</h5>
+                                <div class="empty-state m-2" id="empty-reviews">
+                                    <div class="empty-state-icon" style="background:#fef3c7;color:#f59e0b;">
+                                        <i class="bi bi-chat-left-quote"></i>
+                                    </div>
+                                    <h5>No Reviews Yet</h5>
+                                    <p>There are no student reviews on the platform yet.</p>
                                 </div>
                             </td>
                         </tr>
@@ -57,13 +98,10 @@
         </div>
     </div>
     @if($reviews->hasPages())
-        <div class="card-footer bg-white border-top-0 pt-3">
+        <div class="card-footer bg-white border-top border-soft pt-3 px-4">
             {{ $reviews->links('pagination::bootstrap-5') }}
         </div>
     @endif
 </div>
 
-<div class="mt-4">
-    {{ $reviews->links() }}
-</div>
 @endsection
