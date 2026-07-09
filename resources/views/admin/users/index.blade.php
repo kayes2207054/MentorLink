@@ -8,17 +8,17 @@
     </div>
 </div>
 
-<div class="card border-0 shadow-sm mb-4" style="border-radius:1rem!important;">
+<div class="card card-elevated border-0 mb-4">
     <div class="card-body p-4">
         <form method="GET" action="{{ route('admin.users.index') }}" class="row g-3 align-items-center">
             <div class="col-md-4">
-                <div class="input-group">
+                <div class="input-group shadow-sm">
                     <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
                     <input type="text" name="search" class="form-control border-start-0" placeholder="Search by name or email..." value="{{ request('search') }}">
                 </div>
             </div>
             <div class="col-md-3">
-                <select name="role" class="form-select">
+                <select name="role" class="form-select shadow-sm">
                     <option value="">All Roles</option>
                     <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
                     <option value="mentor" {{ request('role') == 'mentor' ? 'selected' : '' }}>Mentor</option>
@@ -26,27 +26,27 @@
                 </select>
             </div>
             <div class="col-md-3">
-                <select name="status" class="form-select">
+                <select name="status" class="form-select shadow-sm">
                     <option value="">All Statuses</option>
                     <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
                     <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
                 </select>
             </div>
             <div class="col-md-2 d-grid gap-2 d-md-flex">
-                <button type="submit" class="btn btn-primary px-3 shadow-sm w-100">Filter</button>
+                <button type="submit" class="btn btn-primary px-3 shadow-sm w-100"><i class="bi bi-funnel me-1"></i>Filter</button>
                 @if(request('search') || request('role') || request('status'))
-                    <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary">Clear</a>
+                    <a href="{{ route('admin.users.index') }}" class="btn btn-light"><i class="bi bi-x-lg"></i></a>
                 @endif
             </div>
         </form>
     </div>
 </div>
 
-<div class="card border-0 shadow-sm" style="border-radius:1rem!important;">
+<div class="card card-elevated border-0">
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
-                <thead class="table-light">
+                <thead class="table-light text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.05em;">
                     <tr>
                         <th class="ps-4">User</th>
                         <th>Role</th>
@@ -102,9 +102,12 @@
                     @empty
                     <tr>
                         <td colspan="4">
-                            <div class="text-center py-5 text-muted">
-                                <i class="bi bi-search fs-1 mb-3 d-block"></i>
+                            <div class="empty-state m-2">
+                                <div class="empty-state-icon">
+                                    <i class="bi bi-search"></i>
+                                </div>
                                 <h5>No users found</h5>
+                                <p class="text-muted mb-0">No users match your current filter criteria.</p>
                             </div>
                         </td>
                     </tr>

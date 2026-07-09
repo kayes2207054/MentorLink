@@ -10,32 +10,31 @@
 </div>
 
 {{-- Filter --}}
-<div class="card border-0 shadow-sm mb-4" style="border-radius:1rem!important;">
+<div class="card card-elevated border-0 mb-4">
     <div class="card-body p-4">
         <form method="GET" action="{{ route('admin.mentors.index') }}" id="mentor-verify-filter" class="row g-3 align-items-center">
             <div class="col-md-5">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-search"></i></span>
-                    <input type="text" name="search" class="form-control"
+                <div class="input-group shadow-sm">
+                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
+                    <input type="text" name="search" class="form-control border-start-0"
                            id="mentor-search" placeholder="Search by mentor name..."
                            value="{{ request('search') }}">
                 </div>
             </div>
             <div class="col-md-3">
-                <select name="status" class="form-select" id="filter-verify-status">
+                <select name="status" class="form-select shadow-sm" id="filter-verify-status">
                     <option value="">All Verification Status</option>
                     <option value="verified"   {{ request('status') == 'verified'   ? 'selected' : '' }}>Verified</option>
                     <option value="unverified" {{ request('status') == 'unverified' ? 'selected' : '' }}>Unverified</option>
                 </select>
             </div>
             <div class="col-md-4 d-flex gap-2">
-                <button type="submit" class="btn btn-primary px-4 hover-lift-btn" id="btn-filter-mentors">
+                <button type="submit" class="btn btn-primary px-4 shadow-sm w-100 hover-lift-btn" id="btn-filter-mentors">
                     <i class="bi bi-funnel me-1"></i>Filter
                 </button>
                 @if(request('search') || request('status'))
                     <a href="{{ route('admin.mentors.index') }}"
-                       class="btn px-3"
-                       style="background:#f1f5f9;color:#475569;border:1px solid #e2e8f0;font-weight:600;"
+                       class="btn btn-light px-3"
                        id="btn-clear-mentor-filter">
                         <i class="bi bi-x-lg"></i>
                     </a>
@@ -46,11 +45,11 @@
 </div>
 
 {{-- Mentors Table --}}
-<div class="card border-0 shadow-sm" style="border-radius:1rem!important;">
+<div class="card card-elevated border-0">
     <div class="card-body p-0">
         <div class="table-responsive">
-            <table class="table table-hover mb-0" id="admin-mentors-table">
-                <thead>
+            <table class="table table-hover align-middle mb-0" id="admin-mentors-table">
+                <thead class="table-light text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.05em;">
                     <tr>
                         <th class="ps-4">Mentor</th>
                         <th>Designation</th>

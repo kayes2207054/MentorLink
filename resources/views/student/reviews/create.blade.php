@@ -50,7 +50,7 @@
                                     <label class="form-label fw-bold">Title <span class="text-danger">*</span></label>
                                     <div class="input-group has-validation">
                                         <span class="input-group-text bg-white"><i class="bi bi-type text-muted"></i></span>
-                                        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" required placeholder="e.g. Great mentor, very helpful!">
+                                        <input type="text" name="title" class="form-control shadow-sm @error('title') is-invalid @enderror" value="{{ old('title') }}" required placeholder="e.g. Great mentor, very helpful!">
                                         @error('title')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -59,7 +59,7 @@
 
                                 <div class="mb-4">
                                     <label class="form-label fw-bold">Comment <span class="text-danger">*</span></label>
-                                    <textarea name="comment" class="form-control @error('comment') is-invalid @enderror" rows="5" required placeholder="Share details about your experience, what you learned, and how the mentor helped you...">{{ old('comment') }}</textarea>
+                                    <textarea name="comment" class="form-control shadow-sm @error('comment') is-invalid @enderror" rows="5" required placeholder="Share details about your experience, what you learned, and how the mentor helped you...">{{ old('comment') }}</textarea>
                                     @error('comment')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

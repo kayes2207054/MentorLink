@@ -35,15 +35,18 @@
         </div>
 
         <div class="navbar-nav ms-auto pe-4 flex-row align-items-center gap-3">
-            <span class="text-dark fw-medium small d-none d-md-inline">
-                {{ Auth::user()->name }}
-            </span>
+            <div class="nav-user-chip d-none d-md-flex align-items-center gap-2 ps-1">
+                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 28px; height: 28px; font-size: 0.75rem;">
+                    {{ substr(Auth::user()->name, 0, 1) }}
+                </div>
+                <span class="small">{{ Auth::user()->name }}</span>
+            </div>
             <div class="nav-item">
-                <form method="POST" action="{{ route('logout') }}">
+                <form method="POST" action="{{ route('logout') }}" class="m-0">
                     @csrf
                     <button type="submit" id="admin-logout"
-                            class="btn btn-outline-danger btn-sm rounded-pill px-3 fw-bold">
-                        <i class="bi bi-box-arrow-right me-1"></i>
+                            class="btn btn-soft-danger btn-sm rounded-pill px-3 fw-bold d-flex align-items-center gap-1">
+                        <i class="bi bi-box-arrow-right"></i>
                         <span class="d-none d-sm-inline">Sign Out</span>
                     </button>
                 </form>

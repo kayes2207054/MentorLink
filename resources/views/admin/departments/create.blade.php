@@ -1,18 +1,22 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Add Department</h1>
-    <a href="{{ route('admin.departments.index') }}" class="btn btn-secondary">Back to List</a>
+<div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-soft">
+    <div>
+        <h4 class="fw-bold mb-0">Add Department</h4>
+        <p class="text-muted small mb-0">Create a new academic department</p>
+    </div>
+    <a href="{{ route('admin.departments.index') }}" class="btn btn-light shadow-sm">
+        <i class="bi bi-arrow-left me-1"></i>Back to List
+    </a>
 </div>
 
 <div class="row">
     <div class="col-lg-6">
-        <div class="card border-0 shadow-sm">
-            <div class="card-header bg-white border-0 pt-4 pb-2">
-                <h6 class="fw-bold mb-0"><i class="bi bi-building-add me-2 text-primary"></i>Department Details</h6>
-            </div>
-            <div class="card-body p-4">
+        <div class="form-shell">
+            <h6 class="fw-bold mb-4"><i class="bi bi-building-add me-2 text-primary"></i>Department Details</h6>
+            
+            <div>
                 <form method="POST" action="{{ route('admin.departments.store') }}" novalidate>
                     @csrf
                     <div class="mb-4">

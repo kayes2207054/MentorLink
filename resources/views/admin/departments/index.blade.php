@@ -11,11 +11,11 @@
     </a>
 </div>
 
-<div class="card border-0 shadow-sm" style="border-radius:1rem!important;">
+<div class="card card-elevated border-0">
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
-                <thead class="table-light">
+                <thead class="table-light text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.05em;">
                     <tr>
                         <th class="ps-4">ID</th>
                         <th>Name</th>
@@ -50,10 +50,13 @@
                     @empty
                     <tr>
                         <td colspan="4">
-                            <div class="text-center py-5 text-muted">
-                                <i class="bi bi-building-x fs-1 mb-3 d-block"></i>
+                            <div class="empty-state m-2">
+                                <div class="empty-state-icon">
+                                    <i class="bi bi-building-x"></i>
+                                </div>
                                 <h5>No departments found</h5>
-                                <a href="{{ route('admin.departments.create') }}" class="btn btn-primary mt-2">Create First Department</a>
+                                <p class="text-muted mb-0">Add departments that mentors can associate with their profiles.</p>
+                                <a href="{{ route('admin.departments.create') }}" class="btn btn-primary mt-3 rounded-pill px-4"><i class="bi bi-plus-lg me-2"></i>Create First Department</a>
                             </div>
                         </td>
                     </tr>
