@@ -609,3 +609,54 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 .text-warning { color: var(--ml-warning) !important; }
 .bg-info { background-color: var(--ml-accent) !important; }
 .text-info { color: var(--ml-accent) !important; }
+
+/* =============================================================
+   DATA-GRID & FILTER COHESION FIXES
+   ============================================================= */
+
+/* Fix Bootstrap table-light leaking into dark mode */
+.table-light, .table-light th, .table-light td {
+  background-color: rgba(0,0,0,0.2) !important;
+  color: var(--ml-text-muted) !important;
+  border-bottom-color: var(--ml-border-soft) !important;
+}
+
+/* Fix Pagination */
+.pagination {
+  margin-bottom: 0;
+}
+.pagination .page-link {
+  background-color: var(--ml-card-bg);
+  border-color: var(--ml-border);
+  color: var(--ml-text-muted);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+.pagination .page-link:hover, .pagination .page-link:focus {
+  background-color: rgba(255,255,255,0.1);
+  color: #fff;
+  border-color: var(--ml-border);
+  box-shadow: none;
+}
+.pagination .page-item.active .page-link {
+  background: linear-gradient(135deg, var(--ml-primary) 0%, var(--ml-primary-dark) 100%);
+  border-color: var(--ml-primary);
+  color: white;
+  box-shadow: 0 4px 6px rgba(99, 102, 241, 0.25);
+}
+.pagination .page-item.disabled .page-link {
+  background-color: rgba(0,0,0,0.2);
+  border-color: var(--ml-border-soft);
+  color: rgba(255,255,255,0.3);
+}
+
+/* Fix filter inputs leaking white */
+.input-group-text.bg-white, .form-control.bg-white {
+  background-color: rgba(0,0,0,0.3) !important;
+  color: var(--ml-text-dark) !important;
+  border-color: var(--ml-border) !important;
+}
+.input-group-text i {
+  color: var(--ml-text-muted) !important;
+}
