@@ -73,7 +73,7 @@
             </main>
 
             {{-- Footer --}}
-            <footer class="py-4 mt-auto bg-white border-top border-soft">
+            <footer class="py-4 mt-auto border-top border-soft" style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px);">
                 <div class="page-inner">
                     <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
                         <span class="text-muted small fw-medium">
