@@ -85,7 +85,7 @@
         </div>
     </div>
     @if($skills->hasPages())
-        <div class="card-footer bg-white border-top border-soft pt-3 px-4">
+        <div class="card-footer bg-transparent border-top border-soft pt-3 px-4">
             {{ $skills->links('pagination::bootstrap-5') }}
         </div>
     @endif

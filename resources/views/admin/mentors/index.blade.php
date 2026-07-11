@@ -14,9 +14,9 @@
     <div class="card-body p-4">
         <form method="GET" action="{{ route('admin.mentors.index') }}" id="mentor-verify-filter" class="row g-3 align-items-center">
             <div class="col-md-5">
-                <div class="input-group shadow-sm">
-                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
-                    <input type="text" name="search" class="form-control border-start-0"
+                <div class="input-group shadow-sm border border-soft rounded">
+                    <span class="input-group-text bg-transparent border-0"><i class="bi bi-search text-muted"></i></span>
+                    <input type="text" name="search" class="form-control border-0 bg-transparent"
                            id="mentor-search" placeholder="Search by mentor name..."
                            value="{{ request('search') }}">
                 </div>
@@ -137,7 +137,7 @@
         </div>
     </div>
     @if($mentors->hasPages())
-        <div class="card-footer bg-white border-top border-soft pt-3 px-4">
+        <div class="card-footer bg-transparent border-top border-soft pt-3 px-4">
             {{ $mentors->links('pagination::bootstrap-5') }}
         </div>
     @endif

@@ -3,12 +3,9 @@
 
 <div class="d-flex justify-content-between align-items-center mb-5 pb-3 border-bottom border-soft">
     <div>
-        <h2 class="fw-bold font-heading text-dark mb-1">Platform Overview</h2>
+        <h2 class="fw-bold font-heading text-white mb-1">Platform Overview</h2>
         <p class="text-muted mb-0 fs-5">Real-time metrics and system health</p>
     </div>
-    <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 rounded-pill px-3 py-2 fw-bold shadow-sm d-flex align-items-center gap-2">
-        <span class="spinner-grow spinner-grow-sm text-success" role="status"></span> System Online
-    </span>
 </div>
 
 <div class="row g-4 mb-5 fade-in-stagger">
@@ -57,7 +54,7 @@
 <div class="row g-4 mb-5 fade-in-stagger">
     <div class="col-lg-8">
         <div class="card card-elevated h-100 border-0">
-            <div class="card-header bg-white border-bottom border-soft p-4 d-flex align-items-center">
+            <div class="card-header bg-transparent border-bottom border-soft p-4 d-flex align-items-center">
                 <div class="bg-primary bg-opacity-10 text-primary rounded p-2 me-3">
                     <i class="bi bi-activity"></i>
                 </div>
@@ -67,7 +64,7 @@
                 <div class="row g-4 text-center">
                     <div class="col-sm-4 border-end border-soft">
                         <p class="text-muted text-uppercase fw-bold small mb-2">Total Requests</p>
-                        <h3 class="fw-bold text-dark">{{ $totalRequests }}</h3>
+                        <h3 class="fw-bold text-white">{{ $totalRequests }}</h3>
                     </div>
                     <div class="col-sm-4 border-end border-soft">
                         <p class="text-muted text-uppercase fw-bold small mb-2">Completed Sessions</p>
@@ -91,7 +88,7 @@
                 </div>
                 <h4 class="font-heading fw-bold mb-1">{{ $totalDepartments }} Departments</h4>
                 <p class="text-white-50 mb-4">{{ $totalSkills }} Registered Skills</p>
-                <a href="{{ route('admin.departments.index') }}" class="btn btn-light rounded-pill px-4 fw-bold text-dark">Manage Catalog</a>
+                <a href="{{ route('admin.departments.index') }}" class="btn btn-light rounded-pill px-4 fw-bold">Manage Catalog</a>
             </div>
         </div>
     </div>

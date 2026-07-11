@@ -13,7 +13,7 @@
     <!-- Custom Design System -->
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 </head>
-<body class="bg-slate-50">
+<body class="antialiased">
 
     {{-- Top Navbar --}}
     <header class="admin-topbar navbar sticky-top flex-md-nowrap p-0 shadow-sm" style="height:72px;">

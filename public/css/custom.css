@@ -660,3 +660,35 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 .input-group-text i {
   color: var(--ml-text-muted) !important;
 }
+
+/* =============================================================
+   AUTH PAGES & BREEZE PURGE FIXES
+   ============================================================= */
+
+/* Make auth cards slightly more spacious on desktop, better on mobile */
+@media (min-width: 576px) {
+  .auth-card {
+    padding: 3rem 2.5rem !important;
+  }
+}
+@media (max-width: 575.98px) {
+  .auth-card {
+    padding: 1.5rem !important;
+    border-radius: 12px !important;
+  }
+}
+
+/* Dark mode native checkboxes */
+.form-check-input {
+  background-color: rgba(0,0,0,0.3);
+  border-color: var(--ml-border);
+}
+.form-check-input:checked {
+  background-color: var(--ml-primary);
+  border-color: var(--ml-primary);
+}
+
+/* Helper text contrast */
+.text-muted {
+  color: #94a3b8 !important; /* Slightly brighter slate-400 for better dark contrast */
+}

@@ -66,7 +66,7 @@
         </div>
     </div>
     @if($departments->hasPages())
-        <div class="card-footer bg-white border-top-0 pt-3">
+        <div class="card-footer bg-transparent border-top-0 pt-3">
             {{ $departments->links('pagination::bootstrap-5') }}
         </div>
     @endif

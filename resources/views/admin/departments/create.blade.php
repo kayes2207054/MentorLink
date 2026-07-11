@@ -21,9 +21,9 @@
                     @csrf
                     <div class="mb-4">
                         <label for="name" class="form-label fw-medium">Department Name <span class="text-danger">*</span></label>
-                        <div class="input-group has-validation">
-                            <span class="input-group-text bg-white"><i class="bi bi-building text-muted"></i></span>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" placeholder="e.g. Computer Science" required autofocus>
+                        <div class="input-group has-validation shadow-sm border border-soft rounded">
+                            <span class="input-group-text bg-transparent border-0"><i class="bi bi-building text-muted"></i></span>
+                            <input type="text" class="form-control border-0 bg-transparent text-white @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" placeholder="e.g. Computer Science" required autofocus>
                             @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

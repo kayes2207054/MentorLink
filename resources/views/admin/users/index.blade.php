@@ -12,9 +12,9 @@
     <div class="card-body p-4">
         <form method="GET" action="{{ route('admin.users.index') }}" class="row g-3 align-items-center">
             <div class="col-md-4">
-                <div class="input-group shadow-sm">
-                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
-                    <input type="text" name="search" class="form-control border-start-0" placeholder="Search by name or email..." value="{{ request('search') }}">
+                <div class="input-group shadow-sm border border-soft rounded">
+                    <span class="input-group-text bg-transparent border-0"><i class="bi bi-search text-muted"></i></span>
+                    <input type="text" name="search" class="form-control bg-transparent border-0 text-white" placeholder="Search by name or email..." value="{{ request('search') }}">
                 </div>
             </div>
             <div class="col-md-3">
@@ -117,7 +117,7 @@
         </div>
     </div>
     @if($users->hasPages())
-        <div class="card-footer bg-white border-top-0 pt-3">
+        <div class="card-footer bg-transparent border-top-0 pt-3">
             {{ $users->links('pagination::bootstrap-5') }}
         </div>
     @endif
