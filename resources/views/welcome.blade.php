@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'MentorLink') }} - Find Your Perfect Mentor</title>
+    <meta name="description" content="Connect with verified industry professionals, book one-on-one mentorship sessions, and accelerate your career growth with MentorLink.">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
     <!-- Bootstrap 5 CSS -->
@@ -60,18 +61,20 @@
         <div class="container page-inner page-hero-inner">
             <div class="row align-items-center py-5">
                 <div class="col-lg-6 text-center text-lg-start mb-5 mb-lg-0 fade-in">
-                    <span class="badge bg-primary bg-opacity-10 text-white rounded-pill px-3 py-2 mb-3 fw-bold tracking-wide border border-primary border-opacity-25">THE #1 MENTORING PLATFORM</span>
-                    <h1 class="hero-title mb-4 font-heading display-4 fw-bolder text-white">Accelerate Your Career with <span class="text-warning">Expert Mentorship</span></h1>
-                    <p class="hero-subtitle text-white opacity-75 fs-5 mb-4">Connect with industry professionals, book one-on-one sessions, and achieve your goals faster than ever before.</p>
-                    <div class="d-flex justify-content-center justify-content-lg-start gap-3">
-                        <a href="{{ route('register') }}" class="btn btn-light btn-lg rounded-pill px-4 text-primary fw-bold shadow-sm hover-lift-btn">Find a Mentor</a>
+                    <span class="badge bg-primary bg-opacity-10 text-white rounded-pill px-3 py-2 mb-3 fw-bold tracking-wide border border-primary border-opacity-25 hero-badge">THE #1 MENTORING PLATFORM</span>
+                    <h1 class="hero-title mb-4 font-heading fw-bolder text-white">Accelerate Your Career with <span class="text-warning">Expert Mentorship</span></h1>
+                    <p class="hero-subtitle text-white opacity-75 mb-4">Connect with industry professionals, book one-on-one sessions, and achieve your goals faster than ever before.</p>
+                    <div class="d-flex justify-content-center justify-content-lg-start gap-3 flex-wrap">
+                        <a href="{{ route('register') }}" class="btn btn-light btn-lg rounded-pill px-4 fw-bold shadow-sm hover-lift-btn">
+                            <i class="bi bi-arrow-right-circle-fill me-2"></i>Find a Mentor
+                        </a>
                         <a href="#how-it-works" class="btn btn-outline-light btn-lg rounded-pill px-4 shadow-sm hover-lift-btn">Learn More</a>
                     </div>
                 </div>
-                <div class="col-lg-6 position-relative fade-in" style="animation-delay: 0.2s;">
+                <div class="col-lg-6 position-relative fade-in d-flex justify-content-center" style="animation-delay: 0.2s;">
                     <!-- Floating Stats Cards -->
-                    <div class="position-absolute top-50 start-0 translate-middle-y ms-n4 d-none d-xl-block hover-lift z-3">
-                        <div class="card card-elevated p-3 border-0">
+                    <div class="position-absolute top-50 start-0 translate-middle-y ms-n4 d-none d-xl-block z-3">
+                        <div class="hero-float-card">
                             <div class="d-flex align-items-center gap-3">
                                 <div class="bg-success bg-opacity-25 p-2 rounded-circle text-success">
                                     <i class="bi bi-graph-up-arrow fs-4"></i>
@@ -83,11 +86,13 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <img src="{{ asset('images/hero_custom.png') }}" alt="Mentorship Expert" class="img-fluid rounded-circle shadow-lg mx-auto d-block border border-4 border-opacity-25 border-white position-relative z-2" style="width: 80%; object-fit: cover; aspect-ratio: 1/1;">
-                    
-                    <div class="position-absolute bottom-0 end-0 mb-5 me-n4 d-none d-xl-block hover-lift z-3">
-                        <div class="card card-elevated p-3 border-0">
+
+                    <div class="hero-image-frame mx-auto d-block">
+                        <img src="{{ asset('images/hero_custom.png') }}" alt="Mentorship Expert">
+                    </div>
+
+                    <div class="position-absolute bottom-0 end-0 mb-5 me-n4 d-none d-xl-block z-3">
+                        <div class="hero-float-card">
                             <div class="d-flex align-items-center gap-3">
                                 <div class="bg-warning bg-opacity-25 p-2 rounded-circle text-warning">
                                     <i class="bi bi-star-fill fs-4"></i>
@@ -107,9 +112,9 @@
     <!-- Statistics -->
     <section class="py-6 position-relative z-2" style="margin-top: -3rem;">
         <div class="container page-inner">
-            <div class="row fade-in g-4">
-                <div class="col-md-4">
-                    <div class="stat-card p-4 text-center hover-lift h-100">
+            <div class="row g-4 reveal-stagger">
+                <div class="col-md-4 reveal-on-scroll">
+                    <div class="stat-card p-4 text-center h-100">
                         <div class="stat-icon-wrapper d-inline-flex p-3 mb-3 text-primary fs-2">
                             <i class="bi bi-people-fill"></i>
                         </div>
@@ -117,8 +122,8 @@
                         <p class="text-muted mb-0 fw-medium">Active Students</p>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="stat-card p-4 text-center hover-lift h-100">
+                <div class="col-md-4 reveal-on-scroll">
+                    <div class="stat-card p-4 text-center h-100">
                         <div class="stat-icon-wrapper d-inline-flex p-3 mb-3 text-warning fs-2">
                             <i class="bi bi-star-fill"></i>
                         </div>
@@ -126,8 +131,8 @@
                         <p class="text-muted mb-0 fw-medium">Verified Mentors</p>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="stat-card p-4 text-center hover-lift h-100">
+                <div class="col-md-4 reveal-on-scroll">
+                    <div class="stat-card p-4 text-center h-100">
                         <div class="stat-icon-wrapper d-inline-flex p-3 mb-3 text-success fs-2">
                             <i class="bi bi-calendar2-check-fill"></i>
                         </div>
@@ -142,33 +147,33 @@
     <!-- Features -->
     <section id="features" class="py-6 pt-5">
         <div class="container page-inner py-5">
-            <div class="text-center mb-5 fade-in">
-                <span class="text-primary fw-bold tracking-wide text-uppercase small mb-2 d-block">Core Features</span>
+            <div class="text-center mb-5 reveal-on-scroll">
+                <span class="section-label">Core Features</span>
                 <h2 class="fw-bold mb-3 display-6 font-heading">Why Choose MentorLink?</h2>
                 <p class="text-muted lead mx-auto" style="max-width: 600px;">We provide all the tools you need for a successful mentorship journey in one unified platform.</p>
             </div>
-            <div class="row g-4 fade-in">
-                <div class="col-md-4">
-                    <div class="card card-elevated h-100 p-5 text-center hover-lift border-0">
-                        <div class="bg-primary bg-opacity-25 text-primary rounded-circle d-inline-flex mx-auto p-4 mb-4 shadow-sm">
+            <div class="row g-4 reveal-stagger">
+                <div class="col-md-4 reveal-on-scroll">
+                    <div class="card card-elevated feature-card h-100 p-5 text-center border-0">
+                        <div class="feature-icon bg-primary bg-opacity-25 text-primary rounded-circle d-inline-flex mx-auto p-4 mb-4 shadow-sm">
                             <i class="bi bi-search fs-1"></i>
                         </div>
                         <h4 class="font-heading fw-bold mb-3">Smart Discovery</h4>
                         <p class="text-muted mb-0">Easily find mentors by expertise, specific skills, or top ratings with our advanced directory.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card card-elevated h-100 p-5 text-center hover-lift border-0">
-                        <div class="bg-success bg-opacity-25 text-success rounded-circle d-inline-flex mx-auto p-4 mb-4 shadow-sm">
+                <div class="col-md-4 reveal-on-scroll">
+                    <div class="card card-elevated feature-card h-100 p-5 text-center border-0">
+                        <div class="feature-icon bg-success bg-opacity-25 text-success rounded-circle d-inline-flex mx-auto p-4 mb-4 shadow-sm">
                             <i class="bi bi-calendar-event fs-1"></i>
                         </div>
                         <h4 class="font-heading fw-bold mb-3">Seamless Scheduling</h4>
                         <p class="text-muted mb-0">Book sessions directly based on your mentor's real-time availability calendar.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card card-elevated h-100 p-5 text-center hover-lift border-0">
-                        <div class="bg-warning bg-opacity-25 text-warning rounded-circle d-inline-flex mx-auto p-4 mb-4 shadow-sm">
+                <div class="col-md-4 reveal-on-scroll">
+                    <div class="card card-elevated feature-card h-100 p-5 text-center border-0">
+                        <div class="feature-icon bg-warning bg-opacity-25 text-warning rounded-circle d-inline-flex mx-auto p-4 mb-4 shadow-sm">
                             <i class="bi bi-shield-check fs-1"></i>
                         </div>
                         <h4 class="font-heading fw-bold mb-3">Verified Experts</h4>
@@ -182,37 +187,37 @@
     <!-- How It Works -->
     <section id="how-it-works" class="py-6 position-relative">
         <div class="container page-inner py-5">
-            <div class="card card-elevated border-0 overflow-hidden">
+            <div class="card card-elevated border-0 overflow-hidden reveal-on-scroll">
                 <div class="row g-0 align-items-center">
-                    <div class="col-lg-6 p-5 fade-in">
-                        <span class="text-primary fw-bold tracking-wide text-uppercase small mb-2 d-block">Process</span>
+                    <div class="col-lg-6 p-5">
+                        <span class="section-label">Process</span>
                         <h2 class="fw-bold mb-5 display-6 font-heading">How It Works</h2>
-                        
-                        <div class="d-flex mb-5 position-relative">
+
+                        <div class="d-flex mb-5 position-relative step-item">
                             <div class="me-4 position-relative z-2">
-                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm" style="width: 56px; height: 56px; font-size: 1.25rem;">1</div>
-                                <div class="position-absolute" style="left: 28px; top: 56px; bottom: -40px; width: 2px; background: rgba(255,255,255,0.1); z-index: -1;"></div>
+                                <div class="step-circle bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm">1</div>
+                                <div class="step-connector"></div>
                             </div>
                             <div class="pt-2">
                                 <h5 class="fw-bold mb-2 text-white">Create your profile</h5>
                                 <p class="text-muted mb-0">Sign up as a student or apply to be a mentor. Complete your profile to get started.</p>
                             </div>
                         </div>
-                        
-                        <div class="d-flex mb-5 position-relative">
+
+                        <div class="d-flex mb-5 position-relative step-item">
                             <div class="me-4 position-relative z-2">
-                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm" style="width: 56px; height: 56px; font-size: 1.25rem;">2</div>
-                                <div class="position-absolute" style="left: 28px; top: 56px; bottom: -40px; width: 2px; background: rgba(255,255,255,0.1); z-index: -1;"></div>
+                                <div class="step-circle bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm">2</div>
+                                <div class="step-connector"></div>
                             </div>
                             <div class="pt-2">
                                 <h5 class="fw-bold mb-2 text-white">Send a request</h5>
                                 <p class="text-muted mb-0">Browse the mentor directory, find your match, and send a mentorship connection request.</p>
                             </div>
                         </div>
-                        
-                        <div class="d-flex">
+
+                        <div class="d-flex step-item">
                             <div class="me-4">
-                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm" style="width: 56px; height: 56px; font-size: 1.25rem;">3</div>
+                                <div class="step-circle bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm">3</div>
                             </div>
                             <div class="pt-2">
                                 <h5 class="fw-bold mb-2 text-white">Book and learn</h5>
@@ -220,7 +225,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 fade-in text-center p-5 bg-dark bg-opacity-25 h-100 d-flex align-items-center justify-content-center">
+                    <div class="col-lg-6 text-center p-5 bg-dark bg-opacity-25 h-100 d-flex align-items-center justify-content-center">
                         <img src="{{ asset('images/how-it-works.svg') }}" alt="Mentorship Session" class="img-fluid rounded-4 shadow-lg border border-light border-opacity-10" style="width: 100%; max-width: 500px; background: rgba(255,255,255,0.05); padding: 2rem;">
                     </div>
                 </div>
@@ -231,14 +236,15 @@
     <!-- Testimonials -->
     <section id="testimonials" class="py-6 pt-4">
         <div class="container page-inner py-5">
-            <div class="text-center mb-5 fade-in">
-                <span class="text-primary fw-bold tracking-wide text-uppercase small mb-2 d-block">Success Stories</span>
+            <div class="text-center mb-5 reveal-on-scroll">
+                <span class="section-label">Success Stories</span>
                 <h2 class="fw-bold mb-3 display-6 font-heading">What Our Users Say</h2>
                 <p class="text-muted lead mx-auto" style="max-width: 600px;">Real stories from students and mentors achieving greatness on MentorLink.</p>
             </div>
-            <div class="row g-4 fade-in">
-                <div class="col-md-4">
-                    <div class="card card-elevated border-0 shadow-lg h-100 p-4 hover-lift">
+            <div class="row g-4 reveal-stagger">
+                <div class="col-md-4 reveal-on-scroll">
+                    <div class="card card-elevated testimonial-card border-0 shadow-lg h-100 p-4">
+                        <span class="testimonial-quote-mark">&ldquo;</span>
                         <div class="card-body">
                             <div class="text-warning mb-3">
                                 <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
@@ -254,8 +260,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card card-elevated border-0 shadow-lg h-100 p-4 hover-lift">
+                <div class="col-md-4 reveal-on-scroll">
+                    <div class="card card-elevated testimonial-card border-0 shadow-lg h-100 p-4">
+                        <span class="testimonial-quote-mark">&ldquo;</span>
                         <div class="card-body">
                             <div class="text-warning mb-3">
                                 <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
@@ -271,8 +278,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card card-elevated border-0 shadow-lg h-100 p-4 hover-lift">
+                <div class="col-md-4 reveal-on-scroll">
+                    <div class="card card-elevated testimonial-card border-0 shadow-lg h-100 p-4">
+                        <span class="testimonial-quote-mark">&ldquo;</span>
                         <div class="card-body">
                             <div class="text-warning mb-3">
                                 <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
@@ -295,33 +303,33 @@
     <!-- FAQ -->
     <section id="faq" class="py-6 pt-4 mb-5">
         <div class="container page-inner py-5">
-            <div class="text-center mb-5 fade-in">
-                <span class="text-primary fw-bold tracking-wide text-uppercase small mb-2 d-block">Support</span>
+            <div class="text-center mb-5 reveal-on-scroll">
+                <span class="section-label">Support</span>
                 <h2 class="fw-bold mb-3 display-6 font-heading">Frequently Asked Questions</h2>
             </div>
-            <div class="row justify-content-center fade-in">
-                <div class="col-lg-8">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 reveal-on-scroll">
                     <div class="accordion" id="accordionFAQ">
-                        <div class="accordion-item border-0 mb-3 shadow-lg rounded-4 overflow-hidden" style="background: var(--ml-card-bg); backdrop-filter: blur(12px);">
+                        <div class="accordion-item faq-item mb-3">
                             <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button fw-bold px-4 py-4 text-white shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="background: transparent;">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                     How do I become a mentor?
                                 </button>
                             </h2>
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionFAQ">
-                                <div class="accordion-body text-muted px-4 pb-4 pt-0 border-top border-soft mx-3 mt-2">
+                                <div class="accordion-body">
                                     You can sign up as a user and choose the "Mentor" role. After filling out your profile, an administrator will review and verify your account.
                                 </div>
                             </div>
                         </div>
-                        <div class="accordion-item border-0 mb-3 shadow-lg rounded-4 overflow-hidden" style="background: var(--ml-card-bg); backdrop-filter: blur(12px);">
+                        <div class="accordion-item faq-item mb-3">
                             <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button collapsed fw-bold px-4 py-4 text-white shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="background: transparent;">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                     Are sessions free?
                                 </button>
                             </h2>
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionFAQ">
-                                <div class="accordion-body text-muted px-4 pb-4 pt-0 border-top border-soft mx-3 mt-2">
+                                <div class="accordion-body">
                                     Currently, MentorLink provides a platform for free mentorship connections to help students grow their careers.
                                 </div>
                             </div>
@@ -333,8 +341,8 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-5 mt-auto border-top border-soft" style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px);">
-        <div class="container page-inner fade-in">
+    <footer class="site-footer py-5 mt-auto">
+        <div class="container page-inner reveal-on-scroll">
             <div class="row g-5 mb-5">
                 <div class="col-lg-4">
                     <a class="navbar-brand d-inline-flex align-items-center mb-4 text-white" href="{{ url('/') }}">
@@ -344,19 +352,19 @@
                         <span class="font-heading fw-bold fs-4">MentorLink</span>
                     </a>
                     <p class="text-muted mb-4 pe-lg-4">Empowering the next generation of professionals through expert mentorship and seamless guidance.</p>
-                    <div class="d-flex gap-3">
-                        <a href="#" class="text-muted text-decoration-none hover-lift"><i class="bi bi-twitter fs-5"></i></a>
-                        <a href="#" class="text-muted text-decoration-none hover-lift"><i class="bi bi-linkedin fs-5"></i></a>
-                        <a href="#" class="text-muted text-decoration-none hover-lift"><i class="bi bi-github fs-5"></i></a>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="footer-social-icon twitter" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="footer-social-icon linkedin" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="footer-social-icon github" aria-label="GitHub"><i class="bi bi-github"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4">
                     <h6 class="fw-bold text-uppercase tracking-wide text-white mb-4">Platform</h6>
                     <ul class="list-unstyled mb-0">
-                        <li class="mb-2"><a href="#features" class="text-muted text-decoration-none d-inline-block transition-all hover:text-white">Features</a></li>
-                        <li class="mb-2"><a href="#how-it-works" class="text-muted text-decoration-none d-inline-block transition-all hover:text-white">How it Works</a></li>
-                        <li class="mb-2"><a href="#testimonials" class="text-muted text-decoration-none d-inline-block transition-all hover:text-white">Testimonials</a></li>
-                        <li><a href="#faq" class="text-muted text-decoration-none d-inline-block transition-all hover:text-white">FAQ</a></li>
+                        <li class="mb-2"><a href="#features" class="footer-link">Features</a></li>
+                        <li class="mb-2"><a href="#how-it-works" class="footer-link">How it Works</a></li>
+                        <li class="mb-2"><a href="#testimonials" class="footer-link">Testimonials</a></li>
+                        <li><a href="#faq" class="footer-link">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-4">
@@ -375,18 +383,18 @@
                 <div class="col-lg-3 col-md-4">
                     <h6 class="fw-bold text-uppercase tracking-wide text-white mb-4">Newsletter</h6>
                     <p class="text-muted small mb-3">Subscribe to get the latest updates and mentoring tips.</p>
-                    <div class="input-group mb-3 shadow-sm rounded-3 overflow-hidden">
-                        <input type="email" class="form-control border-0" placeholder="Email address" aria-label="Email address" style="background: rgba(255,255,255,0.05); color: white;">
-                        <button class="btn btn-primary px-3" type="button"><i class="bi bi-send-fill"></i></button>
+                    <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                        <input type="email" class="form-control newsletter-input border-0" placeholder="Email address" aria-label="Email address">
+                        <button class="btn btn-primary newsletter-btn" type="button"><i class="bi bi-send-fill"></i></button>
                     </div>
                 </div>
             </div>
-            
+
             <div class="border-top border-soft pt-4 mt-4 text-center text-md-start d-md-flex justify-content-between align-items-center text-muted small">
                 <p class="mb-2 mb-md-0">&copy; {{ date('Y') }} MentorLink. All rights reserved.</p>
                 <div class="d-flex justify-content-center gap-3">
-                    <a href="#" class="text-muted text-decoration-none">Privacy Policy</a>
-                    <a href="#" class="text-muted text-decoration-none">Terms of Service</a>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
                 </div>
             </div>
         </div>
@@ -394,6 +402,7 @@
 
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <style>
         /* Small overrides for accordion icon colors in dark mode */
         .accordion-button::after {
@@ -403,5 +412,38 @@
             filter: invert(0.5) sepia(1) saturate(5) hue-rotate(200deg);
         }
     </style>
+
+    <!-- Scroll-triggered reveal & smooth scroll -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // IntersectionObserver for scroll-triggered reveals
+            var revealEls = document.querySelectorAll('.reveal-on-scroll');
+            if ('IntersectionObserver' in window && revealEls.length) {
+                var observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('revealed');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+                revealEls.forEach(function (el) { observer.observe(el); });
+            } else {
+                // Fallback: reveal all immediately
+                revealEls.forEach(function (el) { el.classList.add('revealed'); });
+            }
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+                link.addEventListener('click', function (e) {
+                    var target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
