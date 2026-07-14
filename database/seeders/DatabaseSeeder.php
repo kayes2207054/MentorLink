@@ -4,10 +4,12 @@ namespace Database\Seeders;
 
 use App\Models\Department;
 use App\Models\MentorAvailability;
+use App\Models\MentorProfile;
 use App\Models\MentorshipRequest;
 use App\Models\Review;
 use App\Models\SessionBooking;
 use App\Models\Skill;
+use App\Models\StudentProfile;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,177 +24,103 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // 1. Seed base data
         $this->call([
             DepartmentSeeder::class,
             SkillSeeder::class,
         ]);
 
-        // 1. Create Admin
-        User::updateOrCreate([
-            'email' => 'admin@mentorlink.test',
-        ], [
-            'name' => 'MentorLink Admin',
-            'role' => User::ROLE_ADMIN,
-            'password' => Hash::make('password'),
-            'email_verified_at' => now(),
-            'is_active' => true,
-        ]);
-
-        // 2. Create Realistic Mentors
-        $mentor1 = User::updateOrCreate([
-            'email' => 'sarah@mentorlink.test',
-        ], [
-            'name' => 'Sarah Johnson',
-            'role' => User::ROLE_MENTOR,
-            'password' => Hash::make('password'),
-            'email_verified_at' => now(),
-            'is_active' => true,
-        ]);
-
-        $mentor1->mentorProfile()->updateOrCreate(
-            ['user_id' => $mentor1->id],
-            [
-                'designation' => 'Senior Software Engineer at Google',
-                'experience' => 'I have 8+ years of experience building scalable backend systems and distributed architectures. I specialize in Laravel, Python, and cloud infrastructure.',
-                'bio' => 'Passionate about helping junior developers transition into mid-level and senior roles. I focus on system design, clean code practices, and career growth strategies.',
-                'is_verified' => true,
-                'verified_at' => now(),
-            ]
-        );
-
-        $mentor2 = User::updateOrCreate([
-            'email' => 'david@mentorlink.test',
-        ], [
-            'name' => 'David Chen',
-            'role' => User::ROLE_MENTOR,
-            'password' => Hash::make('password'),
-            'email_verified_at' => now(),
-            'is_active' => true,
-        ]);
-
-        $mentor2->mentorProfile()->updateOrCreate(
-            ['user_id' => $mentor2->id],
-            [
-                'designation' => 'Lead Data Scientist',
-                'experience' => 'Over 10 years of experience in Data Science, Machine Learning, and AI. Led multiple successful AI product launches in the fintech space.',
-                'bio' => 'I love mentoring students interested in AI and Data Science. From Python basics to advanced Neural Networks, I can help you build a strong foundation.',
-                'is_verified' => true,
-                'verified_at' => now(),
-            ]
-        );
-
-        // Attach Skills
+        $departments = Department::all();
         $skills = Skill::all();
-        if ($skills->count() > 0) {
-            $mentor1->mentorProfile->skills()->syncWithoutDetaching($skills->random(3)->pluck('id')->toArray());
-            $mentor2->mentorProfile->skills()->syncWithoutDetaching($skills->random(4)->pluck('id')->toArray());
+
+        // 2. Create Admin
+        User::factory()->admin()->create([
+            'name' => 'MentorLink Admin',
+            'email' => 'admin@mentorlink.test',
+            'password' => Hash::make('password'),
+        ]);
+
+        // 3. Create Mentors
+        $mentors = User::factory()->mentor()->count(12)->create();
+
+        // Custom fixed mentors for testing login easily
+        $mentors[0]->update([
+            'name' => 'Sarah Johnson',
+            'email' => 'mentor@mentorlink.test',
+        ]);
+
+        foreach ($mentors as $mentor) {
+            $profile = MentorProfile::factory()->create([
+                'user_id' => $mentor->id,
+            ]);
+
+            // Attach random skills (3 to 6)
+            if ($skills->count() > 0) {
+                $profile->skills()->attach(
+                    $skills->random(rand(3, 6))->pluck('id')->toArray()
+                );
+            }
+
+            // Create availability slots (3 to 5)
+            MentorAvailability::factory()->count(rand(3, 5))->create([
+                'mentor_profile_id' => $profile->id,
+            ]);
         }
 
-        // 3. Create Realistic Students
-        $department = Department::first();
+        // 4. Create Students
+        $students = User::factory()->student()->count(40)->create();
 
-        $student1 = User::updateOrCreate([
-            'email' => 'alex@mentorlink.test',
-        ], [
+        // Custom fixed student for testing login easily
+        $students[0]->update([
             'name' => 'Alex Rodriguez',
-            'role' => User::ROLE_STUDENT,
-            'password' => Hash::make('password'),
-            'email_verified_at' => now(),
-            'is_active' => true,
+            'email' => 'student@mentorlink.test',
         ]);
 
-        $student1->studentProfile()->updateOrCreate(
-            ['user_id' => $student1->id],
-            [
-                'student_id' => 'STU-2024-001',
-                'department_id' => $department->id ?? null,
-                'academic_year' => '3rd Year',
-                'semester' => 'Spring',
-                'bio' => 'Aspiring software engineer looking for guidance on backend development and system design.',
-            ]
-        );
-
-        $student2 = User::updateOrCreate([
-            'email' => 'emily@mentorlink.test',
-        ], [
-            'name' => 'Emily Watson',
-            'role' => User::ROLE_STUDENT,
-            'password' => Hash::make('password'),
-            'email_verified_at' => now(),
-            'is_active' => true,
-        ]);
-
-        $student2->studentProfile()->updateOrCreate(
-            ['user_id' => $student2->id],
-            [
-                'student_id' => 'STU-2024-002',
-                'department_id' => $department->id ?? null,
-                'academic_year' => '4th Year',
-                'semester' => 'Fall',
-                'bio' => 'Data Science enthusiast trying to break into the industry. Seeking advice on ML projects.',
-            ]
-        );
-
-        // 4. Create sample interactions (Requests, Bookings, Reviews)
-        // Check if relationships exist before creating to avoid duplicates in seeder runs
-        if (MentorshipRequest::count() === 0) {
-            MentorshipRequest::create([
-                'student_id' => $student1->id,
-                'mentor_id' => $mentor1->id,
-                'status' => 'accepted',
-                'message' => 'Hi Sarah, I would love to learn system design from you!',
+        foreach ($students as $student) {
+            StudentProfile::factory()->create([
+                'user_id' => $student->id,
+                'department_id' => $departments->random()->id,
             ]);
+        }
 
-            MentorshipRequest::create([
-                'student_id' => $student2->id,
-                'mentor_id' => $mentor2->id,
-                'status' => 'pending',
-                'message' => 'Hello David, your background in Data Science is exactly what I am looking for.',
-            ]);
+        // 5. Create Interactions
+        // Give each student a chance to interact with a few mentors
+        foreach ($students as $student) {
+            // Pick 1 to 3 random mentors for this student
+            $selectedMentors = $mentors->random(rand(1, 3));
 
-            // Add an availability for mentor1
-            $availability = MentorAvailability::create([
-                'mentor_id' => $mentor1->id,
-                'day_of_week' => 'Monday',
-                'start_time' => '10:00:00',
-                'end_time' => '11:00:00',
-            ]);
+            foreach ($selectedMentors as $mentor) {
+                // 50% chance they made a mentorship request
+                if (rand(1, 100) > 50) {
+                    MentorshipRequest::factory()->create([
+                        'student_id' => $student->id,
+                        'mentor_id' => $mentor->id,
+                    ]);
+                }
 
-            // Add a booking
-            SessionBooking::create([
-                'student_id' => $student1->id,
-                'mentor_id' => $mentor1->id,
-                'availability_id' => $availability->id,
-                'booking_date' => now()->addDays(3)->format('Y-m-d'),
-                'status' => 'accepted',
-                'notes' => 'Looking forward to discussing my project architecture.',
-            ]);
+                // 60% chance they booked a session
+                if (rand(1, 100) > 40) {
+                    $availabilities = $mentor->mentorProfile->availabilities;
+                    if ($availabilities->count() > 0) {
+                        $availability = $availabilities->random();
 
-            // Add a completed session and a review
-            $pastAvailability = MentorAvailability::create([
-                'mentor_id' => $mentor1->id,
-                'day_of_week' => 'Friday',
-                'start_time' => '14:00:00',
-                'end_time' => '15:00:00',
-            ]);
+                        $booking = SessionBooking::factory()->create([
+                            'student_id' => $student->id,
+                            'mentor_id' => $mentor->id,
+                            'availability_id' => $availability->id,
+                        ]);
 
-            $completedBooking = SessionBooking::create([
-                'student_id' => $student1->id,
-                'mentor_id' => $mentor1->id,
-                'availability_id' => $pastAvailability->id,
-                'booking_date' => now()->subDays(5)->format('Y-m-d'),
-                'status' => 'completed',
-                'notes' => 'First introductory session.',
-            ]);
-
-            Review::create([
-                'student_id' => $student1->id,
-                'mentor_id' => $mentor1->id,
-                'session_booking_id' => $completedBooking->id,
-                'rating' => 5,
-                'title' => 'Amazing introductory session!',
-                'comment' => 'Sarah was incredibly helpful in our first session. She gave me a clear roadmap for what I need to learn to master system design.',
-            ]);
+                        // If the booking is completed, there's an 80% chance they left a review
+                        if ($booking->status === 'completed' && rand(1, 100) > 20) {
+                            Review::factory()->create([
+                                'session_booking_id' => $booking->id,
+                                'student_id' => $student->id,
+                                'mentor_id' => $mentor->id,
+                            ]);
+                        }
+                    }
+                }
+            }
         }
     }
 }
