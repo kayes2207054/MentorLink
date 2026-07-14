@@ -77,8 +77,8 @@
                             <td>
                                 @if($mentor->mentorProfile && $mentor->mentorProfile->is_verified)
                                     <div>
-                                        <span class="badge badge-status-accepted rounded-pill px-3 py-2">
-                                            <i class="bi bi-patch-check-fill me-1"></i>Verified
+                                        <span class="badge badge-status-accepted">
+                                            <i class="bi bi-patch-check-fill"></i>Verified
                                         </span>
                                         <div class="small text-muted mt-1">
                                             <i class="bi bi-calendar3 me-1"></i>
@@ -86,8 +86,8 @@
                                         </div>
                                     </div>
                                 @else
-                                    <span class="badge badge-status-pending rounded-pill px-3 py-2">
-                                        <i class="bi bi-clock me-1"></i>Unverified
+                                    <span class="badge badge-status-pending">
+                                        <i class="bi bi-clock"></i>Unverified
                                     </span>
                                 @endif
                             </td>
@@ -122,7 +122,7 @@
                     @empty
                         <tr>
                             <td colspan="4">
-                                <div class="empty-state m-2" id="empty-mentors">
+                                <div class="empty-state" id="empty-mentors">
                                     <div class="empty-state-icon">
                                         <i class="bi bi-person-badge"></i>
                                     </div>
@@ -137,8 +137,8 @@
         </div>
     </div>
     @if($mentors->hasPages())
-        <div class="card-footer bg-transparent border-top border-soft pt-3 px-4">
-            {{ $mentors->links('pagination::bootstrap-5') }}
+        <div class="border-top border-soft p-4 pb-0">
+            {{ $mentors->links() }}
         </div>
     @endif
 </div>

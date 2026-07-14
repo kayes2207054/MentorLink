@@ -55,15 +55,15 @@
                                                 </td>
                                                 <td>
                                                     @if($booking->status == 'pending')
-                                                        <span class="badge badge-status-pending rounded-pill px-3 py-2"><i class="bi bi-clock me-1"></i>Pending</span>
+                                                        <span class="badge badge-status-pending"><i class="bi bi-clock"></i>Pending</span>
                                                     @elseif($booking->status == 'accepted')
-                                                        <span class="badge badge-status-accepted rounded-pill px-3 py-2"><i class="bi bi-check-circle me-1"></i>Accepted</span>
+                                                        <span class="badge badge-status-accepted"><i class="bi bi-check-circle"></i>Accepted</span>
                                                     @elseif($booking->status == 'rejected')
-                                                        <span class="badge badge-status-rejected rounded-pill px-3 py-2"><i class="bi bi-x-circle me-1"></i>Rejected</span>
+                                                        <span class="badge badge-status-rejected"><i class="bi bi-x-circle"></i>Rejected</span>
                                                     @elseif($booking->status == 'cancelled')
-                                                        <span class="badge badge-status-cancelled rounded-pill px-3 py-2"><i class="bi bi-slash-circle me-1"></i>Cancelled</span>
+                                                        <span class="badge badge-status-cancelled"><i class="bi bi-slash-circle"></i>Cancelled</span>
                                                     @else
-                                                        <span class="badge badge-status-completed rounded-pill px-3 py-2"><i class="bi bi-check2-all me-1"></i>Completed</span>
+                                                        <span class="badge badge-status-completed"><i class="bi bi-check2-all"></i>Completed</span>
                                                     @endif
                                                 </td>
                                                 <td class="text-end pe-4">
@@ -108,8 +108,8 @@
                             </div>
                         </div>
                         @if($bookings->hasPages())
-                            <div class="card-footer bg-white border-top-0 pt-3">
-                                {{ $bookings->links('pagination::bootstrap-5') }}
+                            <div class="border-top border-soft p-4 pb-0">
+                                {{ $bookings->links() }}
                             </div>
                         @endif
                     </div>

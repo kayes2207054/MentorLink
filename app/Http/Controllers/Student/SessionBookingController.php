@@ -16,7 +16,7 @@ class SessionBookingController extends Controller
 
     public function index()
     {
-        $bookings = auth()->user()->studentSessions()->with(['mentor.mentorProfile', 'availability'])->latest('booking_date')->paginate(15);
+        $bookings = auth()->user()->bookedSessions()->with(['mentor.mentorProfile', 'availability'])->latest('booking_date')->paginate(15);
 
         return view('student.bookings.index', compact('bookings'));
     }
