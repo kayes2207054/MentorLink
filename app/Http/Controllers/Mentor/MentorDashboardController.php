@@ -30,7 +30,7 @@ class MentorDashboardController extends Controller
 
         // Mentor Insights
         $totalRequests = $requests->count();
-        $availabilitySlotCount = $user->availabilities()->count();
+        $availabilitySlotCount = $user->mentorProfile ? $user->mentorProfile->availabilities()->count() : 0;
 
         return view('mentor.dashboard', compact(
             'pendingRequests', 'acceptedRequests', 'rejectedRequests',

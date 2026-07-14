@@ -14,6 +14,13 @@ class SessionBookingController extends Controller
 {
     use AuthorizesRequests;
 
+    public function index()
+    {
+        $bookings = auth()->user()->studentSessions()->with(['mentor.mentorProfile', 'availability'])->latest('booking_date')->paginate(15);
+
+        return view('student.bookings.index', compact('bookings'));
+    }
+
     public function create(User $mentor)
     {
         if ($mentor->role !== User::ROLE_MENTOR || ! $mentor->mentorProfile || ! $mentor->mentorProfile->is_verified) {

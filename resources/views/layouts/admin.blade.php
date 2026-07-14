@@ -60,7 +60,9 @@
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block admin-sidebar collapse">
                 <div class="position-sticky pt-4 px-2" style="top:72px; height: calc(100vh - 72px); overflow-y:auto;">
                     
-                    <p class="text-uppercase fw-bold text-muted small px-3 mb-2 tracking-wide">Overview</p>
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-2 text-muted text-uppercase" style="font-size: 0.65rem; letter-spacing: 0.08em; font-weight: 700;">
+                        <span>Overview</span>
+                    </h6>
                     <ul class="nav flex-column mb-4">
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"
@@ -70,7 +72,9 @@
                         </li>
                     </ul>
 
-                    <p class="text-uppercase fw-bold text-muted small px-3 mb-2 tracking-wide">Management</p>
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-2 text-muted text-uppercase border-top border-soft pt-4" style="font-size: 0.65rem; letter-spacing: 0.08em; font-weight: 700;">
+                        <span>Management</span>
+                    </h6>
                     <ul class="nav flex-column mb-4">
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}"
@@ -86,7 +90,9 @@
                         </li>
                     </ul>
 
-                    <p class="text-uppercase fw-bold text-muted small px-3 mb-2 tracking-wide">Platform Content</p>
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-2 text-muted text-uppercase border-top border-soft pt-4" style="font-size: 0.65rem; letter-spacing: 0.08em; font-weight: 700;">
+                        <span>Platform Content</span>
+                    </h6>
                     <ul class="nav flex-column mb-4">
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('admin.departments.*') ? 'active' : '' }}"
@@ -104,6 +110,24 @@
                             <a class="nav-link {{ request()->routeIs('admin.reviews.*') ? 'active' : '' }}"
                                href="{{ route('admin.reviews.index') }}">
                                 <i class="bi bi-star-fill me-2"></i> Reviews
+                            </a>
+                        </li>
+                    </ul>
+
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-2 text-muted text-uppercase border-top border-soft pt-4" style="font-size: 0.65rem; letter-spacing: 0.08em; font-weight: 700;">
+                        <span>Interactions</span>
+                    </h6>
+                    <ul class="nav flex-column mb-4">
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.bookings.*') ? 'active' : '' }}"
+                               href="{{ route('admin.bookings.index') }}">
+                                <i class="bi bi-journal-check me-2"></i> Bookings
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.mentorship-requests.*') ? 'active' : '' }}"
+                               href="{{ route('admin.mentorship-requests.index') }}">
+                                <i class="bi bi-inbox-fill me-2"></i> Requests
                             </a>
                         </li>
                     </ul>

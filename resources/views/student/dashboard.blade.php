@@ -78,15 +78,15 @@
                                                 </td>
                                                 <td>
                                                     @if($booking->status == 'pending')
-                                                        <span class="badge badge-status-pending"><i class="bi bi-clock me-1"></i>Pending</span>
+                                                        <span class="badge badge-status-pending"><i class="bi bi-clock"></i>Pending</span>
                                                     @elseif($booking->status == 'accepted')
-                                                        <span class="badge badge-status-accepted"><i class="bi bi-check-circle me-1"></i>Accepted</span>
+                                                        <span class="badge badge-status-accepted"><i class="bi bi-check-circle"></i>Accepted</span>
                                                     @elseif($booking->status == 'rejected')
-                                                        <span class="badge badge-status-rejected"><i class="bi bi-x-circle me-1"></i>Rejected</span>
+                                                        <span class="badge badge-status-rejected"><i class="bi bi-x-circle"></i>Rejected</span>
                                                     @elseif($booking->status == 'cancelled')
-                                                        <span class="badge badge-status-cancelled"><i class="bi bi-slash-circle me-1"></i>Cancelled</span>
+                                                        <span class="badge badge-status-cancelled"><i class="bi bi-slash-circle"></i>Cancelled</span>
                                                     @else
-                                                        <span class="badge badge-status-completed"><i class="bi bi-check2-all me-1"></i>Completed</span>
+                                                        <span class="badge badge-status-completed"><i class="bi bi-check2-all"></i>Completed</span>
                                                     @endif
                                                 </td>
                                                 <td class="text-end pe-4">
@@ -105,10 +105,10 @@
                                 </table>
                             </div>
                         @else
-                            <div class="empty-state m-4">
+                            <div class="empty-state">
                                 <div class="empty-state-icon"><i class="bi bi-calendar-x"></i></div>
                                 <h5>No Bookings Yet</h5>
-                                <p class="text-muted">Start your journey by scheduling a session with an expert.</p>
+                                <p>Start your journey by scheduling a session with an expert.</p>
                                 <a href="{{ route('student.mentors.index') }}" class="btn btn-primary mt-2">Find a Mentor</a>
                             </div>
                         @endif

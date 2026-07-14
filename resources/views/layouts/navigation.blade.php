@@ -36,8 +36,29 @@
                                 <i class="bi bi-search me-1"></i>Find Mentors
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a id="nav-my-requests"
+                               class="nav-link {{ request()->routeIs('student.mentorship-requests.*') ? 'active' : '' }}"
+                               href="{{ route('student.mentorship-requests.index') }}">
+                                <i class="bi bi-inbox me-1"></i>My Requests
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="nav-my-bookings"
+                               class="nav-link {{ request()->routeIs('student.bookings.*') ? 'active' : '' }}"
+                               href="{{ route('student.bookings.index') }}">
+                                <i class="bi bi-journal-check me-1"></i>My Bookings
+                            </a>
+                        </li>
 
                     @elseif(auth()->user()->role === \App\Models\User::ROLE_MENTOR)
+                        <li class="nav-item">
+                            <a id="nav-mentor-requests"
+                               class="nav-link {{ request()->routeIs('mentor.mentorship-requests.*') ? 'active' : '' }}"
+                               href="{{ route('mentor.mentorship-requests.index') }}">
+                                <i class="bi bi-person-lines-fill me-1"></i>Requests
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a id="nav-availability"
                                class="nav-link {{ request()->routeIs('mentor.availabilities.*') ? 'active' : '' }}"

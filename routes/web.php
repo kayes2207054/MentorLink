@@ -4,7 +4,9 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminMentorController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\MentorshipRequestController as AdminMentorshipRequestController;
 use App\Http\Controllers\Admin\ReviewController;
+use App\Http\Controllers\Admin\SessionBookingController as AdminSessionBookingController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Mentor\AvailabilityController;
 use App\Http\Controllers\Mentor\MentorDashboardController;
@@ -41,6 +43,10 @@ Route::middleware(['auth', 'verified', 'role:'.User::ROLE_ADMIN])->prefix('admin
     // Reviews
     Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
     Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+
+    // Platform Interactions
+    Route::get('/bookings', [AdminSessionBookingController::class, 'index'])->name('bookings.index');
+    Route::get('/mentorship-requests', [AdminMentorshipRequestController::class, 'index'])->name('mentorship-requests.index');
 });
 
 // Mentor Dashboard
@@ -54,6 +60,8 @@ Route::middleware(['auth', 'verified', 'role:'.User::ROLE_MENTOR])->prefix('ment
     Route::post('/profile', [MentorProfileController::class, 'store'])->name('profile.store');
     Route::get('/profile/edit', [MentorProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [MentorProfileController::class, 'update'])->name('profile.update');
+
+    Route::get('/mentorship-requests', [MentorshipRequestController::class, 'mentorIndex'])->name('mentorship-requests.index');
     Route::patch('/mentorship-requests/{mentorship_request}', [MentorshipRequestController::class, 'update'])->name('mentorship-requests.update');
 
     // NEW ROUTES
@@ -79,10 +87,13 @@ Route::middleware(['auth', 'verified', 'role:'.User::ROLE_STUDENT])->prefix('stu
 
     Route::get('/mentors', [MentorDirectoryController::class, 'index'])->name('mentors.index');
     Route::get('/mentors/{mentorProfile}', [MentorDirectoryController::class, 'show'])->name('mentors.show');
+
+    Route::get('/mentorship-requests', [MentorshipRequestController::class, 'studentIndex'])->name('mentorship-requests.index');
     Route::post('/mentorship-requests', [MentorshipRequestController::class, 'store'])->name('mentorship-requests.store');
     Route::delete('/mentorship-requests/{mentorship_request}', [MentorshipRequestController::class, 'destroy'])->name('mentorship-requests.destroy');
 
     // NEW ROUTES
+    Route::get('/bookings', [App\Http\Controllers\Student\SessionBookingController::class, 'index'])->name('bookings.index');
     Route::get('/mentors/{mentor}/book', [App\Http\Controllers\Student\SessionBookingController::class, 'create'])->name('bookings.create');
     Route::post('/mentors/{mentor}/book', [App\Http\Controllers\Student\SessionBookingController::class, 'store'])->name('bookings.store');
     Route::patch('/bookings/{booking}/cancel', [App\Http\Controllers\Student\SessionBookingController::class, 'cancel'])->name('bookings.cancel');

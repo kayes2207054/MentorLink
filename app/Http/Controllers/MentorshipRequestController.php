@@ -9,6 +9,20 @@ use Illuminate\Http\Request;
 
 class MentorshipRequestController extends Controller
 {
+    public function mentorIndex(Request $request)
+    {
+        $requests = $request->user()->receivedMentorshipRequests()->with('student.studentProfile')->latest()->paginate(15);
+
+        return view('mentor.mentorship-requests.index', compact('requests'));
+    }
+
+    public function studentIndex(Request $request)
+    {
+        $requests = $request->user()->sentMentorshipRequests()->with('mentor.mentorProfile')->latest()->paginate(15);
+
+        return view('student.mentorship-requests.index', compact('requests'));
+    }
+
     public function store(StoreMentorshipRequest $request)
     {
         $validated = $request->validated();

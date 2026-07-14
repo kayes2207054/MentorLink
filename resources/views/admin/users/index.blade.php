@@ -68,46 +68,55 @@
                         </td>
                         <td>
                             @if($user->role == 'admin')
-                                <span class="badge bg-danger bg-opacity-10 text-danger border border-danger-subtle px-2 py-1"><i class="bi bi-shield-lock me-1"></i>Admin</span>
+                                <span class="badge badge-status-rejected"><i class="bi bi-shield-lock"></i>Admin</span>
                             @elseif($user->role == 'mentor')
-                                <span class="badge bg-success bg-opacity-10 text-success border border-success-subtle px-2 py-1"><i class="bi bi-person-badge me-1"></i>Mentor</span>
+                                <span class="badge badge-status-completed"><i class="bi bi-person-badge"></i>Mentor</span>
                             @else
-                                <span class="badge bg-primary bg-opacity-10 text-primary border border-primary-subtle px-2 py-1"><i class="bi bi-mortarboard me-1"></i>Student</span>
+                                <span class="badge badge-status-accepted"><i class="bi bi-mortarboard"></i>Student</span>
                             @endif
                         </td>
                         <td>
                             @if($user->isActive())
-                                <span class="badge bg-success border"><i class="bi bi-check-circle me-1"></i>Active</span>
+                                <span class="badge badge-status-active"><i class="bi bi-check-circle"></i>Active</span>
                             @else
-                                <span class="badge bg-secondary border"><i class="bi bi-dash-circle me-1"></i>Inactive</span>
+                                <span class="badge badge-status-inactive"><i class="bi bi-dash-circle"></i>Inactive</span>
                             @endif
                         </td>
                         <td class="text-end pe-4">
                             @if($user->id !== auth()->id())
-                                <form method="POST" action="{{ route('admin.users.updateStatus', $user) }}" class="d-inline" onsubmit="return confirm('Change status for this user?');">
-                                    @csrf
-                                    @method('PATCH')
-                                    <input type="hidden" name="is_active" value="{{ $user->isActive() ? 0 : 1 }}">
-                                    @if($user->isActive())
-                                        <button type="submit" class="btn btn-sm btn-outline-danger"><i class="bi bi-person-x me-1"></i>Deactivate</button>
-                                    @else
-                                        <button type="submit" class="btn btn-sm btn-outline-success"><i class="bi bi-person-check me-1"></i>Activate</button>
-                                    @endif
-                                </form>
+                                <div class="dropdown position-static">
+                                    <button class="btn-action-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-three-dots"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-saas shadow-sm">
+                                        <li>
+                                            <form method="POST" action="{{ route('admin.users.updateStatus', $user) }}">
+                                                @csrf
+                                                @method('PATCH')
+                                                <input type="hidden" name="is_active" value="{{ $user->isActive() ? 0 : 1 }}">
+                                                @if($user->isActive())
+                                                    <button type="submit" class="dropdown-item text-danger"><i class="bi bi-person-x me-2"></i>Deactivate User</button>
+                                                @else
+                                                    <button type="submit" class="dropdown-item"><i class="bi bi-person-check me-2 text-success"></i>Activate User</button>
+                                                @endif
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
                             @else
-                                <span class="text-muted small fst-italic">Current User</span>
+                                <span class="badge badge-status-pending">Current User</span>
                             @endif
                         </td>
                     </tr>
                     @empty
                     <tr>
                         <td colspan="4">
-                            <div class="empty-state m-2">
+                            <div class="empty-state">
                                 <div class="empty-state-icon">
                                     <i class="bi bi-search"></i>
                                 </div>
                                 <h5>No users found</h5>
-                                <p class="text-muted mb-0">No users match your current filter criteria.</p>
+                                <p>No users match your current filter criteria.</p>
                             </div>
                         </td>
                     </tr>

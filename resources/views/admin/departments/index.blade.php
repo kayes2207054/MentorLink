@@ -26,36 +26,61 @@
                 <tbody>
                     @forelse($departments as $department)
                     <tr>
-                        <td class="ps-4 text-muted">#{{ $department->id }}</td>
+                        <td class="ps-4 text-muted" style="width: 80px;">#{{ $department->id }}</td>
                         <td>
+                            @php
+                                $deptIcon = 'building';
+                                $deptColor = 'primary';
+                                $name = strtolower($department->name);
+                                
+                                if (str_contains($name, 'computer')) { $deptIcon = 'pc-display'; $deptColor = 'info'; }
+                                elseif (str_contains($name, 'electrical')) { $deptIcon = 'lightning-charge'; $deptColor = 'warning'; }
+                                elseif (str_contains($name, 'mechanical')) { $deptIcon = 'gear-wide-connected'; $deptColor = 'secondary'; }
+                                elseif (str_contains($name, 'civil')) { $deptIcon = 'cone-striped'; $deptColor = 'danger'; }
+                                elseif (str_contains($name, 'architecture')) { $deptIcon = 'compass'; $deptColor = 'success'; }
+                                elseif (str_contains($name, 'business')) { $deptIcon = 'briefcase'; $deptColor = 'primary'; }
+                            @endphp
                             <div class="d-flex align-items-center">
-                                <div class="bg-primary bg-opacity-10 text-primary rounded d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
-                                    <i class="bi bi-building fs-5"></i>
+                                <div class="bg-{{ $deptColor }} bg-opacity-10 text-{{ $deptColor }} rounded d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                    <i class="bi bi-{{ $deptIcon }} fs-5"></i>
                                 </div>
                                 <span class="fw-bold">{{ $department->name }}</span>
                             </div>
                         </td>
                         <td><small class="text-muted"><i class="bi bi-calendar3 me-1"></i>{{ $department->created_at->format('M d, Y') }}</small></td>
                         <td class="text-end pe-4">
-                            <div class="btn-group">
-                                <a href="{{ route('admin.departments.edit', $department) }}" class="btn btn-sm btn-outline-secondary" title="Edit"><i class="bi bi-pencil"></i></a>
-                                <form method="POST" action="{{ route('admin.departments.destroy', $department) }}" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this department?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete"><i class="bi bi-trash"></i></button>
-                                </form>
+                            <div class="dropdown position-static">
+                                <button class="btn-action-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-saas shadow-sm">
+                                    <li>
+                                        <a href="{{ route('admin.departments.edit', $department) }}" class="dropdown-item">
+                                            <i class="bi bi-pencil me-2 text-muted"></i>Edit Department
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <form method="POST" action="{{ route('admin.departments.destroy', $department) }}" onsubmit="return confirm('Are you sure you want to delete this department?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="dropdown-item text-danger">
+                                                <i class="bi bi-trash me-2"></i>Delete Department
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
                             </div>
                         </td>
                     </tr>
                     @empty
                     <tr>
                         <td colspan="4">
-                            <div class="empty-state m-2">
+                            <div class="empty-state">
                                 <div class="empty-state-icon">
                                     <i class="bi bi-building-x"></i>
                                 </div>
                                 <h5>No departments found</h5>
-                                <p class="text-muted mb-0">Add departments that mentors can associate with their profiles.</p>
+                                <p>Add departments that mentors can associate with their profiles.</p>
                                 <a href="{{ route('admin.departments.create') }}" class="btn btn-primary mt-3 rounded-pill px-4"><i class="bi bi-plus-lg me-2"></i>Create First Department</a>
                             </div>
                         </td>

@@ -77,10 +77,10 @@
                                 @endforeach
                             </div>
                         @else
-                            <div class="empty-state m-4">
-                                <div class="empty-state-icon text-primary bg-primary bg-opacity-10"><i class="bi bi-inbox"></i></div>
+                            <div class="empty-state">
+                                <div class="empty-state-icon text-primary"><i class="bi bi-inbox"></i></div>
                                 <h5>Inbox Zero</h5>
-                                <p class="text-muted">You have no pending mentorship requests right now.</p>
+                                <p>You have no pending mentorship requests right now.</p>
                             </div>
                         @endif
                     </div>
