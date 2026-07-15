@@ -113,173 +113,21 @@
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('mentor-filter-form');
             const pageInput = document.getElementById('page-input');
-            const resultsContainer = document.getElementById('mentor-results');
-            const countBadge = document.getElementById('mentor-count-badge');
-            const paginationContainer = document.getElementById('pagination-container');
-
-            function fetchMentors() {
-                const formData = new FormData(form);
-                const params = new URLSearchParams(formData);
-                const queryString = params.toString();
-
-                // Update URL for shareability
-                history.pushState(null, '', '?' + queryString);
-
-                // Show loading state
-                resultsContainer.innerHTML = `
-                    <div class="col-12 text-center py-5">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                        <p class="text-muted mt-2 fw-medium">Searching mentors...</p>
-                    </div>
-                `;
-
-                fetch('/api/mentors?' + queryString, {
-                    headers: { 'Accept': 'application/json' }
-                })
-                .then(response => response.json())
-                .then(json => {
-                    renderMentors(json.data);
-                    renderPagination(json.meta);
-                    countBadge.textContent = `${json.meta.total} Available`;
-                })
-                .catch(error => {
-                    console.error('Error fetching mentors:', error);
-                    resultsContainer.innerHTML = `<div class="col-12 alert alert-danger">Error loading mentors. Please try again.</div>`;
-                });
-            }
-
-            function renderMentors(mentors) {
-                if (mentors.length === 0) {
-                    resultsContainer.innerHTML = `
-                        <div class="col-12">
-                            <div class="empty-state">
-                                <div class="empty-state-icon"><i class="bi bi-search"></i></div>
-                                <h4 class="font-heading fw-bold">No Mentors Found</h4>
-                                <p class="text-muted fs-5">We couldn't find any mentors matching your exact filters.</p>
-                                <button type="button" class="btn btn-primary rounded-pill px-5 mt-3 fw-bold shadow" onclick="document.getElementById('mentor-filter-form').reset(); document.getElementById('page-input').value=1; document.getElementById('mentor-filter-form').dispatchEvent(new Event('submit'));">
-                                    Reset Search
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    return;
-                }
-
-                resultsContainer.innerHTML = mentors.map(mentor => `
-                    <div class="col-md-6 col-xl-4">
-                        <div class="mentor-card h-100 d-flex flex-column">
-                            <div class="mentor-card-banner">
-                                ${mentor.is_verified ? `
-                                    <span class="badge position-absolute top-0 end-0 m-3 shadow-sm"
-                                          style="background:rgba(255,255,255,0.9);color:#10b981;border:1px solid #10b981;"
-                                          title="Verified Mentor">
-                                        <i class="bi bi-patch-check-fill me-1"></i>Verified
-                                    </span>
-                                ` : ''}
-                            </div>
-                            
-                            <div class="text-center px-4 pb-3" style="margin-top: -40px;">
-                                <img src="${mentor.avatar_url}" 
-                                     alt="${mentor.name}" 
-                                     class="mentor-card-avatar mb-3">
-                                
-                                <h5 class="fw-bold font-heading mb-1 text-dark">${mentor.name}</h5>
-                                <p class="text-primary fw-medium small mb-2">${mentor.designation}</p>
-                                
-                                <div class="d-flex justify-content-center align-items-center gap-1 mb-2">
-                                    ${mentor.rating > 0 ? `
-                                        <div class="text-warning" style="font-size: 0.9rem;">
-                                            ${[1,2,3,4,5].map(i => `<i class="bi bi-star${i <= Math.round(mentor.rating) ? '-fill' : ''}"></i>`).join('')}
-                                        </div>
-                                        <span class="text-dark fw-bold small ms-1">${mentor.rating.toFixed(1)}</span>
-                                        <span class="text-muted small ms-1">(${mentor.reviews_count})</span>
-                                    ` : `
-                                        <span class="badge bg-light text-muted border">New Mentor</span>
-                                    `}
-                                </div>
-                            </div>
-                            
-                            <div class="card-body p-4 pt-2 d-flex flex-column border-top border-soft">
-                                <div class="mb-4">
-                                    <h6 class="text-uppercase fw-bold text-muted mb-2" style="font-size: 0.7rem; letter-spacing: 0.05em;">Top Skills</h6>
-                                    <div class="d-flex flex-wrap gap-2">
-                                        ${mentor.skills.length > 0 ? mentor.skills.slice(0, 3).map(skill => `
-                                            <span class="badge bg-primary bg-opacity-10 text-primary fw-medium">${skill.name}</span>
-                                        `).join('') : `
-                                            <span class="text-muted small fst-italic">General Guidance</span>
-                                        `}
-                                        ${mentor.skills_count > 3 ? `
-                                            <span class="badge bg-light text-muted border">+${mentor.skills_count - 3}</span>
-                                        ` : ''}
-                                    </div>
-                                </div>
-                                
-                                <div class="mt-auto">
-                                    <a href="${mentor.profile_url}"
-                                       class="btn btn-outline-primary w-100 hover-lift-btn fw-bold">
-                                        View Profile
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-            }
-
-            function renderPagination(meta) {
-                if (!meta || meta.last_page <= 1) {
-                    paginationContainer.innerHTML = '';
-                    return;
-                }
-
-                let html = '<nav><ul class="pagination">';
-                meta.links.forEach(link => {
-                    let webUrl = link.url ? link.url.replace('/api/mentors', '/student/mentors') : '#';
-                    
-                    html += `
-                        <li class="page-item ${link.active ? 'active' : ''} ${!link.url ? 'disabled' : ''}">
-                            ${link.url ? `
-                                <a class="page-link ajax-page-link" href="${webUrl}" data-url="${link.url}">${link.label}</a>
-                            ` : `
-                                <span class="page-link">${link.label}</span>
-                            `}
-                        </li>
-                    `;
-                });
-                html += '</ul></nav>';
-                paginationContainer.innerHTML = html;
-            }
-
-            // Bind Form Submit
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                // If form is submitted via button, reset page to 1
-                if (e.isTrusted) {
-                    pageInput.value = 1;
-                }
-                fetchMentors();
-            });
 
             // Bind Select Changes
             const selects = form.querySelectorAll('select');
             selects.forEach(select => {
                 select.addEventListener('change', () => {
                     pageInput.value = 1;
-                    fetchMentors();
+                    form.submit();
                 });
             });
 
-            // Bind Pagination Clicks
-            paginationContainer.addEventListener('click', function(e) {
-                const link = e.target.closest('.ajax-page-link');
-                if (link) {
-                    e.preventDefault();
-                    const url = new URL(link.href);
-                    pageInput.value = url.searchParams.get('page') || 1;
-                    fetchMentors();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Bind Form Submit
+            form.addEventListener('submit', function(e) {
+                // If form is submitted via button, reset page to 1
+                if (e.isTrusted) {
+                    pageInput.value = 1;
                 }
             });
         });

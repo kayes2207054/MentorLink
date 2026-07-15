@@ -353,9 +353,9 @@
                     </a>
                     <p class="text-muted mb-4 pe-lg-4">Empowering the next generation of professionals through expert mentorship and seamless guidance.</p>
                     <div class="d-flex gap-2">
-                        <a href="#" class="footer-social-icon twitter" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
-                        <a href="#" class="footer-social-icon linkedin" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                        <a href="#" class="footer-social-icon github" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                        <a href="javascript:void(0)" class="footer-social-icon twitter" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="javascript:void(0)" class="footer-social-icon linkedin" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                        <a href="javascript:void(0)" class="footer-social-icon github" aria-label="GitHub"><i class="bi bi-github"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4">
@@ -393,8 +393,8 @@
             <div class="border-top border-soft pt-4 mt-4 text-center text-md-start d-md-flex justify-content-between align-items-center text-muted small">
                 <p class="mb-2 mb-md-0">&copy; {{ date('Y') }} MentorLink. All rights reserved.</p>
                 <div class="d-flex justify-content-center gap-3">
-                    <a href="#" class="footer-link">Privacy Policy</a>
-                    <a href="#" class="footer-link">Terms of Service</a>
+                    <a href="javascript:void(0)" class="footer-link">Privacy Policy</a>
+                    <a href="javascript:void(0)" class="footer-link">Terms of Service</a>
                 </div>
             </div>
         </div>

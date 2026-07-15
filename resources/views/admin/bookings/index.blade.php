@@ -78,7 +78,7 @@
                                             <i class="bi bi-three-dots"></i>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-saas shadow-sm">
-                                            <li><a href="#" class="dropdown-item"><i class="bi bi-eye me-2 text-muted"></i>View Details</a></li>
+                                            <li><a href="javascript:void(0)" class="dropdown-item"><i class="bi bi-eye me-2 text-muted"></i>View Details</a></li>
                                         </ul>
                                     </div>
                                 </td>

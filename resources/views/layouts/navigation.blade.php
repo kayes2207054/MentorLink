@@ -112,7 +112,7 @@
 
                     {{-- User Dropdown --}}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle p-0 border-0 bg-transparent d-flex align-items-center text-decoration-none" href="#"
+                        <a class="nav-link dropdown-toggle p-0 border-0 bg-transparent d-flex align-items-center text-decoration-none" href="javascript:void(0)"
                            id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="nav-user-chip d-flex align-items-center gap-2">
                                 <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=e0e7ff&color=4f46e5&size=56"
