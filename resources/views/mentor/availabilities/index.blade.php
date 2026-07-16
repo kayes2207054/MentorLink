@@ -45,7 +45,7 @@
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-hover mb-0" id="availability-table">
-                            <thead>
+                            <thead class="table-light text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.05em;">
                                 <tr>
                                     <th class="ps-4">Day</th>
                                     <th>Start Time</th>

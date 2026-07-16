@@ -138,7 +138,7 @@
     </div>
     @if($mentors->hasPages())
         <div class="border-top border-soft p-4 pb-0">
-            {{ $mentors->links() }}
+            {{ $mentors->links('pagination::bootstrap-5') }}
         </div>
     @endif
 </div>

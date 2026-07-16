@@ -48,7 +48,7 @@
                         @if($bookings->count() > 0)
                             <div class="table-responsive">
                                 <table class="table table-hover align-middle mb-0">
-                                    <thead class="table-light">
+                                    <thead class="table-light text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.05em;">
                                         <tr>
                                             <th class="ps-4">Mentor</th>
                                             <th>Schedule</th>

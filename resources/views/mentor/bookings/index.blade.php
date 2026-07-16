@@ -26,7 +26,7 @@
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table table-hover align-middle mb-0">
-                                    <thead class="table-light">
+                                    <thead class="table-light text-uppercase text-muted" style="font-size: 0.75rem; letter-spacing: 0.05em;">
                                         <tr>
                                             <th class="ps-4">Student</th>
                                             <th>Date</th>
@@ -109,7 +109,7 @@
                         </div>
                         @if($bookings->hasPages())
                             <div class="border-top border-soft p-4 pb-0">
-                                {{ $bookings->links() }}
+                                {{ $bookings->links('pagination::bootstrap-5') }}
                             </div>
                         @endif
                     </div>
