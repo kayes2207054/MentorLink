@@ -86,7 +86,7 @@ Route::middleware(['auth', 'verified', 'role:'.User::ROLE_STUDENT])->prefix('stu
     Route::patch('/profile', [StudentProfileController::class, 'update'])->name('profile.update');
 
     Route::get('/mentors', [MentorDirectoryController::class, 'index'])->name('mentors.index');
-    Route::get('/mentors/{mentorProfile}', [MentorDirectoryController::class, 'show'])->name('mentors.show');
+    Route::get('/mentors/{mentor}', [MentorDirectoryController::class, 'show'])->name('mentors.show');
 
     Route::get('/mentorship-requests', [MentorshipRequestController::class, 'studentIndex'])->name('mentorship-requests.index');
     Route::post('/mentorship-requests', [MentorshipRequestController::class, 'store'])->name('mentorship-requests.store');

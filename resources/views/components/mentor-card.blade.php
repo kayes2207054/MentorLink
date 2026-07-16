@@ -30,7 +30,7 @@
                 <span class="text-dark fw-bold small ms-1">{{ number_format($rating, 1) }}</span>
                 <span class="text-muted small ms-1">({{ $mentor->reviews_received_count ?? 0 }})</span>
             @else
-                <span class="badge bg-light text-muted border">New Mentor</span>
+                <span class="badge bg-opacity-10 bg-secondary text-muted border border-soft">New Mentor</span>
             @endif
         </div>
     </div>
@@ -46,7 +46,7 @@
                         <span class="text-muted small fst-italic">General Guidance</span>
                     @endforelse
                     @if($mentor->mentorProfile->skills->count() > 3)
-                        <span class="badge bg-light text-muted border">+{{ $mentor->mentorProfile->skills->count() - 3 }}</span>
+                        <span class="badge bg-opacity-10 bg-secondary text-muted border border-soft">+{{ $mentor->mentorProfile->skills->count() - 3 }}</span>
                     @endif
                 @endif
             </div>

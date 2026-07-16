@@ -21,11 +21,11 @@
                     <div class="row g-3">
                         <div class="col-lg-12 mb-2">
                             <div class="input-group input-group-lg shadow-sm border rounded-pill overflow-hidden">
-                                <span class="input-group-text bg-white border-0 ps-4 text-primary">
+                                <span class="input-group-text border-0 ps-4 text-primary">
                                     <i class="bi bi-search fs-5"></i>
                                 </span>
                                 <input type="text" name="search"
-                                       class="form-control border-0 px-3 shadow-none bg-white"
+                                       class="form-control border-0 px-3 shadow-none"
                                        placeholder="Search by name, keyword or skill..."
                                        value="{{ request('search') }}">
                                 <button type="submit" class="btn btn-primary px-5 fw-bold text-uppercase" style="letter-spacing: 0.05em; border-radius: 0 50rem 50rem 0;">
@@ -36,7 +36,7 @@
 
                         <div class="col-md-4">
                             <label class="form-label fw-bold text-muted small ms-1">Expertise Area</label>
-                            <select name="skill" class="form-select bg-light border-0 shadow-none fw-medium">
+                            <select name="skill" class="form-select border-0 shadow-none fw-medium">
                                 <option value="">All Skills</option>
                                 @foreach($skills as $skill)
                                     <option value="{{ $skill->id }}" {{ request('skill') == $skill->id ? 'selected' : '' }}>
@@ -48,7 +48,7 @@
 
                         <div class="col-md-4">
                             <label class="form-label fw-bold text-muted small ms-1">Minimum Rating</label>
-                            <select name="min_rating" class="form-select bg-light border-0 shadow-none fw-medium text-warning">
+                            <select name="min_rating" class="form-select border-0 shadow-none fw-medium">
                                 <option value="" class="text-dark">Any Rating</option>
                                 <option value="5" {{ request('min_rating') == '5' ? 'selected' : '' }}>&#9733;&#9733;&#9733;&#9733;&#9733; 5 Stars</option>
                                 <option value="4" {{ request('min_rating') == '4' ? 'selected' : '' }}>&#9733;&#9733;&#9733;&#9733;&#9734; 4+ Stars</option>
@@ -59,7 +59,7 @@
                         <div class="col-md-4">
                             <label class="form-label fw-bold text-muted small ms-1">Sort By</label>
                             <div class="d-flex gap-2">
-                                <select name="sort" class="form-select bg-light border-0 shadow-none fw-medium flex-grow-1">
+                                <select name="sort" class="form-select border-0 shadow-none fw-medium flex-grow-1">
                                     <option value="">Newest First</option>
                                     <option value="highest_rated" {{ request('sort') == 'highest_rated' ? 'selected' : '' }}>Highest Rated</option>
                                     <option value="most_reviewed" {{ request('sort') == 'most_reviewed' ? 'selected' : '' }}>Most Reviewed</option>

@@ -155,8 +155,8 @@
             <div class="row g-4 reveal-stagger">
                 <div class="col-md-4 reveal-on-scroll">
                     <div class="card card-elevated feature-card h-100 p-5 text-center border-0">
-                        <div class="feature-icon bg-primary bg-opacity-25 text-primary rounded-circle d-inline-flex mx-auto p-4 mb-4 shadow-sm">
-                            <i class="bi bi-search fs-1"></i>
+                        <div class="feature-icon bg-primary bg-opacity-10 text-primary rounded-3 d-inline-flex align-items-center justify-content-center mx-auto mb-4" style="width: 64px; height: 64px;">
+                            <i class="bi bi-search fs-2"></i>
                         </div>
                         <h4 class="font-heading fw-bold mb-3">Smart Discovery</h4>
                         <p class="text-muted mb-0">Easily find mentors by expertise, specific skills, or top ratings with our advanced directory.</p>
@@ -164,8 +164,8 @@
                 </div>
                 <div class="col-md-4 reveal-on-scroll">
                     <div class="card card-elevated feature-card h-100 p-5 text-center border-0">
-                        <div class="feature-icon bg-success bg-opacity-25 text-success rounded-circle d-inline-flex mx-auto p-4 mb-4 shadow-sm">
-                            <i class="bi bi-calendar-event fs-1"></i>
+                        <div class="feature-icon bg-success bg-opacity-10 text-success rounded-3 d-inline-flex align-items-center justify-content-center mx-auto mb-4" style="width: 64px; height: 64px;">
+                            <i class="bi bi-calendar-event fs-2"></i>
                         </div>
                         <h4 class="font-heading fw-bold mb-3">Seamless Scheduling</h4>
                         <p class="text-muted mb-0">Book sessions directly based on your mentor's real-time availability calendar.</p>
@@ -173,8 +173,8 @@
                 </div>
                 <div class="col-md-4 reveal-on-scroll">
                     <div class="card card-elevated feature-card h-100 p-5 text-center border-0">
-                        <div class="feature-icon bg-warning bg-opacity-25 text-warning rounded-circle d-inline-flex mx-auto p-4 mb-4 shadow-sm">
-                            <i class="bi bi-shield-check fs-1"></i>
+                        <div class="feature-icon bg-warning bg-opacity-10 text-warning rounded-3 d-inline-flex align-items-center justify-content-center mx-auto mb-4" style="width: 64px; height: 64px;">
+                            <i class="bi bi-shield-check fs-2"></i>
                         </div>
                         <h4 class="font-heading fw-bold mb-3">Verified Experts</h4>
                         <p class="text-muted mb-0">Every mentor is manually verified by our admins to ensure top-quality guidance.</p>
@@ -353,9 +353,9 @@
                     </a>
                     <p class="text-muted mb-4 pe-lg-4">Empowering the next generation of professionals through expert mentorship and seamless guidance.</p>
                     <div class="d-flex gap-2">
-                        <a href="javascript:void(0)" class="footer-social-icon twitter" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
-                        <a href="javascript:void(0)" class="footer-social-icon linkedin" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                        <a href="javascript:void(0)" class="footer-social-icon github" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                        <a href="https://twitter.com/MentorLink" target="_blank" rel="noopener noreferrer" class="footer-social-icon twitter" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="https://linkedin.com/company/MentorLink" target="_blank" rel="noopener noreferrer" class="footer-social-icon linkedin" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                        <a href="https://facebook.com/MentorLink" target="_blank" rel="noopener noreferrer" class="footer-social-icon facebook" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4">
@@ -372,7 +372,7 @@
                     <ul class="list-unstyled mb-0 text-muted">
                         <li class="mb-3 d-flex align-items-start gap-2">
                             <i class="bi bi-envelope-fill text-primary mt-1"></i>
-                            <span>support@mentorlink.com</span>
+                            <a href="mailto:support@mentorlink.com" class="footer-link">support@mentorlink.com</a>
                         </li>
                         <li class="mb-3 d-flex align-items-start gap-2">
                             <i class="bi bi-geo-alt-fill text-primary mt-1"></i>

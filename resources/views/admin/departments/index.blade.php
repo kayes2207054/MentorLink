@@ -33,12 +33,12 @@
                                 $deptColor = 'primary';
                                 $name = strtolower($department->name);
                                 
-                                if (str_contains($name, 'computer')) { $deptIcon = 'pc-display'; $deptColor = 'info'; }
-                                elseif (str_contains($name, 'electrical')) { $deptIcon = 'lightning-charge'; $deptColor = 'warning'; }
-                                elseif (str_contains($name, 'mechanical')) { $deptIcon = 'gear-wide-connected'; $deptColor = 'secondary'; }
-                                elseif (str_contains($name, 'civil')) { $deptIcon = 'cone-striped'; $deptColor = 'danger'; }
-                                elseif (str_contains($name, 'architecture')) { $deptIcon = 'compass'; $deptColor = 'success'; }
-                                elseif (str_contains($name, 'business')) { $deptIcon = 'briefcase'; $deptColor = 'primary'; }
+                                if (str_contains($name, 'computer')) { $deptIcon = 'pc-display'; $deptColor = 'primary'; }
+                                elseif (str_contains($name, 'electrical')) { $deptIcon = 'lightning-charge-fill'; $deptColor = 'warning'; }
+                                elseif (str_contains($name, 'mechanical')) { $deptIcon = 'gear-wide-connected'; $deptColor = 'danger'; }
+                                elseif (str_contains($name, 'civil')) { $deptIcon = 'cone-striped'; $deptColor = 'success'; }
+                                elseif (str_contains($name, 'architecture')) { $deptIcon = 'compass-fill'; $deptColor = 'info'; }
+                                elseif (str_contains($name, 'business')) { $deptIcon = 'briefcase-fill'; $deptColor = 'warning'; }
                             @endphp
                             <div class="d-flex align-items-center">
                                 <div class="bg-{{ $deptColor }} bg-opacity-10 text-{{ $deptColor }} rounded d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">

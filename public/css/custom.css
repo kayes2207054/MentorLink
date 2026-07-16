@@ -753,6 +753,12 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   background: var(--ml-card-bg);
 }
 
+/* Skill badge contrast fix for dark theme */
+.badge.bg-primary.bg-opacity-10 {
+  color: #a5b4fc !important;
+  border: 1px solid rgba(99, 102, 241, 0.25);
+}
+
 /* =============================================================
    FAQ / ACCORDION
    ============================================================= */
