@@ -14,7 +14,7 @@
                     <p class="mb-0 text-white opacity-90 fs-5 fw-medium">
                         {{ $mentor->mentorProfile->designation ?? 'Professional Mentor' }}
                         @if($mentor->mentorProfile && $mentor->mentorProfile->is_verified)
-                            <span class="badge bg-success border border-white ms-2 rounded-pill align-text-bottom"><i class="bi bi-patch-check-fill me-1"></i>Verified</span>
+                            <span class="badge badge-verified-premium ms-2 rounded-pill align-text-bottom"><i class="bi bi-patch-check-fill me-1"></i>Verified</span>
                         @endif
                     </p>
                 </div>

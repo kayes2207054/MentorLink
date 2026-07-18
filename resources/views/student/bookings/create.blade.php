@@ -33,8 +33,7 @@
                                 <h5 class="fw-bold mb-0">{{ $mentor->name }}</h5>
                                 <p class="text-muted mb-1 small">{{ $mentor->mentorProfile->designation ?? 'Professional Mentor' }}</p>
                                 @if($mentor->mentorProfile && $mentor->mentorProfile->is_verified)
-                                    <span class="badge rounded-pill px-2 py-1"
-                                          style="background:#d1fae5;color:#065f46;font-size:.7rem;font-weight:700;">
+                                    <span class="badge badge-verified-premium rounded-pill px-2 py-1">
                                         <i class="bi bi-patch-check-fill me-1"></i>Verified Mentor
                                     </span>
                                 @endif

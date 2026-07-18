@@ -400,8 +400,13 @@
             </div>
 
             <div class="border-top border-soft pt-4 mt-4 text-center text-md-start d-md-flex justify-content-between align-items-center text-muted small">
-                <p class="mb-2 mb-md-0">&copy; {{ date('Y') }} MentorLink. All rights reserved.</p>
-                <div class="d-flex justify-content-center gap-3">
+                <div>
+                    <p class="mb-1 fw-medium">&copy; {{ date('Y') }} MentorLink. All rights reserved.</p>
+                    <p class="mb-1">University Web Programming Lab Project</p>
+                    <p class="mb-1">Developed using Laravel 12 & Bootstrap 5</p>
+                    <p class="mb-0">Developed by Md. Imrul Kayes KUET CSE</p>
+                </div>
+                <div class="d-flex justify-content-center gap-3 mt-3 mt-md-0">
                     <a href="javascript:void(0)" class="footer-link">Privacy Policy</a>
                     <a href="javascript:void(0)" class="footer-link">Terms of Service</a>
                 </div>

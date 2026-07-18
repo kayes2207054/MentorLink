@@ -3,8 +3,7 @@
 <div class="mentor-card h-100 d-flex flex-column">
     <div class="mentor-card-banner">
         @if($mentor->mentorProfile && $mentor->mentorProfile->is_verified)
-            <span class="badge position-absolute top-0 end-0 m-3 shadow-sm"
-                  style="background:rgba(255,255,255,0.9);color:#10b981;border:1px solid #10b981;"
+            <span class="badge badge-verified-premium position-absolute top-0 end-0 m-3 shadow-sm rounded-pill"
                   title="Verified Mentor">
                 <i class="bi bi-patch-check-fill me-1"></i>Verified
             </span>

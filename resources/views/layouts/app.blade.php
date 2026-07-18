@@ -75,12 +75,13 @@
             {{-- Footer --}}
             <footer class="py-4 mt-auto border-top border-soft" style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px);">
                 <div class="page-inner">
-                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
-                        <span class="text-muted small fw-medium">
-                            &copy; {{ date('Y') }}
-                            <strong class="text-primary font-heading fs-6">MentorLink</strong>
-                        </span>
-                        <span class="text-muted small">University Web Programming Lab Project</span>
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 text-center text-md-start">
+                        <div class="text-muted small">
+                            <p class="mb-1 fw-medium">&copy; {{ date('Y') }} <strong class="text-primary font-heading fs-6">MentorLink</strong>. All rights reserved.</p>
+                            <p class="mb-1">University Web Programming Lab Project</p>
+                            <p class="mb-1">Developed using Laravel 12 & Bootstrap 5</p>
+                            <p class="mb-0">Developed by Md. Imrul Kayes KUET CSE</p>
+                        </div>
                     </div>
                 </div>
             </footer>
