@@ -61,15 +61,22 @@ class MentorDirectoryController extends Controller
 
         $mentor->load(['mentorProfile.skills']);
 
-        // Check if current user has a pending request with this mentor
+        // Check if current user has a pending or accepted request with this mentor
         $pendingRequest = null;
+        $acceptedRequest = null;
+
         if (auth()->check()) {
             $pendingRequest = auth()->user()->sentMentorshipRequests()
                 ->where('mentor_id', $mentor->id)
                 ->where('status', 'pending')
                 ->first();
+
+            $acceptedRequest = auth()->user()->sentMentorshipRequests()
+                ->where('mentor_id', $mentor->id)
+                ->where('status', 'accepted')
+                ->first();
         }
 
-        return view('student.mentors.show', compact('mentor', 'pendingRequest'));
+        return view('student.mentors.show', compact('mentor', 'pendingRequest', 'acceptedRequest'));
     }
 }

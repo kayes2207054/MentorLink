@@ -124,6 +124,17 @@
                             </form>
                         </div>
                     </div>
+                @elseif($acceptedRequest)
+                    <div class="card border-success bg-success bg-opacity-10 shadow-sm rounded-4">
+                        <div class="card-body p-4 text-center">
+                            <i class="bi bi-check-circle-fill text-success display-4 mb-3"></i>
+                            <h5 class="fw-bold text-dark font-heading">Mentorship Accepted</h5>
+                            <p class="text-muted small mb-4">Your request was accepted! You can now book a session with this mentor.</p>
+                            <a href="{{ route('student.bookings.create', $mentor) }}" class="btn btn-success w-100 fw-bold rounded-pill text-white shadow">
+                                <i class="bi bi-calendar-check me-2"></i>Book Session
+                            </a>
+                        </div>
+                    </div>
                 @else
                     <div class="card border-0 bg-primary text-white shadow-lg rounded-4 overflow-hidden position-relative">
                         <div class="position-absolute top-0 end-0 p-4 opacity-25">

@@ -68,6 +68,10 @@
                                                 @csrf @method('DELETE')
                                                 <button type="submit" class="btn btn-outline-danger btn-sm px-3 fw-bold rounded-pill">Cancel</button>
                                             </form>
+                                        @elseif($request->status == 'accepted')
+                                            <a href="{{ route('student.bookings.create', $request->mentor) }}" class="btn btn-success btn-sm px-3 fw-bold rounded-pill shadow-sm">
+                                                <i class="bi bi-calendar-check me-1"></i>Book Session
+                                            </a>
                                         @else
                                             <span class="text-muted small">—</span>
                                         @endif

@@ -66,7 +66,13 @@
                                                         <span class="badge badge-status-completed"><i class="bi bi-check2-all"></i>Completed</span>
                                                     @endif
                                                 </td>
+                                                </td>
                                                 <td class="text-end pe-4">
+                                                    <div class="d-flex justify-content-end align-items-center gap-2">
+                                                        <button type="button" class="btn btn-sm btn-outline-info rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#bookingDetailsModal{{ $booking->id }}">
+                                                            <i class="bi bi-eye me-1"></i>View Details
+                                                        </button>
+
                                                     @if($booking->status == 'pending')
                                                         <div class="d-flex justify-content-end gap-2">
                                                             <form action="{{ route('mentor.bookings.updateStatus', $booking) }}" method="POST">
@@ -98,10 +104,83 @@
                                                             </form>
                                                         </div>
                                                     @else
-                                                        <span class="text-muted small fst-italic">No actions</span>
+                                                        <span class="text-muted small fst-italic">No other actions</span>
                                                     @endif
+                                                    </div>
                                                 </td>
                                             </tr>
+
+                                            {{-- Booking Details Modal --}}
+                                            <div class="modal fade" id="bookingDetailsModal{{ $booking->id }}" tabindex="-1" aria-labelledby="bookingDetailsModalLabel{{ $booking->id }}" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content border-0 shadow">
+                                                        <div class="modal-header border-bottom-0 pb-0">
+                                                            <h5 class="modal-title fw-bold" id="bookingDetailsModalLabel{{ $booking->id }}">Booking Details</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="mb-3">
+                                                                <h6 class="text-muted text-uppercase small fw-bold mb-1">Session Schedule</h6>
+                                                                <div class="d-flex align-items-center gap-2">
+                                                                    <i class="bi bi-calendar-event text-primary"></i>
+                                                                    <span class="fw-medium">{{ $booking->booking_date->format('M d, Y') }}</span>
+                                                                    <span class="text-muted mx-1">|</span>
+                                                                    <i class="bi bi-clock text-primary"></i>
+                                                                    <span class="fw-medium">{{ \Carbon\Carbon::parse($booking->availability->start_time)->format('h:i A') }} - {{ \Carbon\Carbon::parse($booking->availability->end_time)->format('h:i A') }}</span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="mb-3">
+                                                                <h6 class="text-muted text-uppercase small fw-bold mb-1">Student</h6>
+                                                                <div class="d-flex align-items-center gap-2 mt-2">
+                                                                    <img src="https://ui-avatars.com/api/?name={{ urlencode($booking->student->name) }}&background=random" class="rounded-circle" width="32" height="32" alt="{{ $booking->student->name }}">
+                                                                    <div>
+                                                                        <div class="fw-medium">{{ $booking->student->name }}</div>
+                                                                        <div class="text-muted small">{{ $booking->student->email }}</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <h6 class="text-muted text-uppercase small fw-bold mb-1">Status</h6>
+                                                                <div>
+                                                                    @if($booking->status == 'pending')
+                                                                        <span class="badge badge-status-pending"><i class="bi bi-clock me-1"></i>Pending</span>
+                                                                    @elseif($booking->status == 'accepted')
+                                                                        <span class="badge badge-status-accepted"><i class="bi bi-check-circle me-1"></i>Accepted</span>
+                                                                    @elseif($booking->status == 'rejected')
+                                                                        <span class="badge badge-status-rejected"><i class="bi bi-x-circle me-1"></i>Rejected</span>
+                                                                    @elseif($booking->status == 'cancelled')
+                                                                        <span class="badge badge-status-cancelled"><i class="bi bi-slash-circle me-1"></i>Cancelled</span>
+                                                                    @else
+                                                                        <span class="badge badge-status-completed"><i class="bi bi-check2-all me-1"></i>Completed</span>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+
+                                                            @if($booking->note)
+                                                            <div>
+                                                                <h6 class="text-muted text-uppercase small fw-bold mb-1">Note from Student</h6>
+                                                                <div class="p-3 bg-light rounded text-dark small">
+                                                                    {{ $booking->note }}
+                                                                </div>
+                                                            </div>
+                                                            @else
+                                                            <div>
+                                                                <h6 class="text-muted text-uppercase small fw-bold mb-1">Note from Student</h6>
+                                                                <div class="p-3 bg-light rounded text-muted small fst-italic">
+                                                                    No note provided.
+                                                                </div>
+                                                            </div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="modal-footer border-top-0 pt-0">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         @endforeach
                                     </tbody>
                                 </table>
