@@ -138,8 +138,8 @@
                                 <div class="mb-4">
                                     <textarea name="message" rows="3" class="form-control border-0 bg-white bg-opacity-10 text-white placeholder-light shadow-none" required placeholder="Hi! I'd love your guidance on..."></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-light w-100 fw-bold text-primary rounded-pill btn-lg shadow hover-lift-btn">
-                                    <i class="bi bi-send-fill me-2"></i>Send Request
+                                <button type="submit" id="btn-send-request" class="btn bg-white w-100 fw-bold text-primary rounded-pill btn-lg">
+                                    <i class="bi bi-send-fill"></i>Send Request
                                 </button>
                             </form>
                         </div>
@@ -152,5 +152,25 @@
     
     <style>
     .placeholder-light::placeholder { color: rgba(255,255,255,0.6); }
+    
+    #btn-send-request {
+        border: 2px solid transparent;
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18) !important;
+        transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    }
+    #btn-send-request:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28) !important;
+        background-color: #f8fafc !important;
+        border-color: rgba(255, 255, 255, 0.4);
+    }
+    #btn-send-request:active {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18) !important;
+    }
+    #btn-send-request i {
+        font-size: 1.05rem;
+        margin-right: 0.5rem;
+    }
     </style>
 </x-app-layout>

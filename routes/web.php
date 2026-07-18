@@ -18,6 +18,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Student\StudentDashboardController;
 use App\Http\Controllers\StudentProfileController;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -114,3 +115,11 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::post('/newsletter', function (Request $request) {
+    $request->validate([
+        'email' => 'required|email',
+    ]);
+
+    return back()->with('success', 'Subscribed successfully!');
+})->name('newsletter.subscribe');

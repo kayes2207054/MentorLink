@@ -41,15 +41,36 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // 3. Create Mentors
+        $bangladeshiNames = [
+            'Farhana Yasmin', // custom login mentor
+            'Md. Ashraful Islam',
+            'Dr. Tanvir Ahmed',
+            'Fahmida Chowdhury',
+            'Kazi Anisur Rahman',
+            'Syed Asif Mahmud',
+            'Nusrat Jahan',
+            'Tahmid Hasan Chowdhury',
+            'Sazia Afrin',
+            'Mohammad Rashedul Alam',
+            'Abdur Rahman',
+            'Zahid Hasan',
+        ];
+
         $mentors = User::factory()->mentor()->count(12)->create();
 
         // Custom fixed mentors for testing login easily
         $mentors[0]->update([
-            'name' => 'Sarah Johnson',
+            'name' => $bangladeshiNames[0],
             'email' => 'mentor@mentorlink.test',
         ]);
 
-        foreach ($mentors as $mentor) {
+        foreach ($mentors as $index => $mentor) {
+            if ($index > 0 && isset($bangladeshiNames[$index])) {
+                $mentor->update([
+                    'name' => $bangladeshiNames[$index],
+                ]);
+            }
+
             $profile = MentorProfile::factory()->create([
                 'user_id' => $mentor->id,
             ]);
@@ -67,14 +88,27 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+        $bangladeshiStudentNames = [
+            'Tahsin Ahmed', 'Nusrat Jahan', 'Saimun Islam', 'Sadia Rahman', 'Rifat Hossain',
+            'Sumaiya Akter', 'Mehdi Hasan', 'Farhan Sadeque', 'Fariha Chowdhury', 'Rafiul Islam',
+            'Jannatul Ferdous', 'Shahriar Hossain', 'Nafis Ahmed', 'Tanjina Akter', 'Riyad Hasan',
+            'Sanjida Islam', 'Ashiqur Rahman', 'Maliha Rahman', 'Tariqul Islam', 'Nahid Hasan',
+            'Samiul Haque', 'Anika Tabassum', 'Sifatullah', 'Fahim Faisal', 'Meherunnesa',
+            'Rakib Hasan', 'Imran Mahmud', 'Ayesha Siddiqua', 'Mahmudul Hasan', 'Tasnim Alam',
+            'Shakil Ahmed', 'Rukaiya Binte', 'Sabbir Hossain', 'Habibur Rahman', 'Fatema Tuz Zohra',
+            'Abrar Fahad', 'Sohana Akter', 'Nazmul Huda', 'Sharmin Akter', 'Zahid Hasan',
+        ];
+
         // 4. Create Students
         $students = User::factory()->student()->count(40)->create();
 
-        // Custom fixed student for testing login easily
-        $students[0]->update([
-            'name' => 'Alex Rodriguez',
-            'email' => 'student@mentorlink.test',
-        ]);
+        foreach ($students as $index => $student) {
+            $updateData = ['name' => $bangladeshiStudentNames[$index % count($bangladeshiStudentNames)]];
+            if ($index === 0) {
+                $updateData['email'] = 'student@mentorlink.test';
+            }
+            $student->update($updateData);
+        }
 
         foreach ($students as $student) {
             StudentProfile::factory()->create([

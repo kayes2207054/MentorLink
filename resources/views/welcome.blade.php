@@ -383,10 +383,19 @@
                 <div class="col-lg-3 col-md-4">
                     <h6 class="fw-bold text-uppercase tracking-wide text-white mb-4">Newsletter</h6>
                     <p class="text-muted small mb-3">Subscribe to get the latest updates and mentoring tips.</p>
-                    <div class="input-group shadow-sm rounded-3 overflow-hidden">
-                        <input type="email" class="form-control newsletter-input border-0" placeholder="Email address" aria-label="Email address">
-                        <button class="btn btn-primary newsletter-btn" type="button"><i class="bi bi-send-fill"></i></button>
-                    </div>
+                    <form action="{{ route('newsletter.subscribe') }}" method="POST">
+                        @csrf
+                        <div class="input-group shadow-sm rounded-3 overflow-hidden mb-1">
+                            <input type="email" name="email" class="form-control newsletter-input border-0 @error('email') is-invalid @enderror" placeholder="Email address" aria-label="Email address" value="{{ old('email') }}">
+                            <button class="btn btn-primary newsletter-btn" type="submit"><i class="bi bi-send-fill"></i></button>
+                        </div>
+                        @error('email')
+                            <div class="text-danger small">{{ $message }}</div>
+                        @enderror
+                        @if(session('success'))
+                            <div class="text-success small">{{ session('success') }}</div>
+                        @endif
+                    </form>
                 </div>
             </div>
 
