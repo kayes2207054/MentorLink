@@ -76,8 +76,8 @@
                     <div class="position-absolute top-50 start-0 translate-middle-y ms-n4 d-none d-xl-block z-3">
                         <div class="hero-float-card">
                             <div class="d-flex align-items-center gap-3">
-                                <div class="bg-success bg-opacity-25 p-2 rounded-circle text-success">
-                                    <i class="bi bi-graph-up-arrow fs-4"></i>
+                                <div class="text-success">
+                                    <i class="bi bi-graph-up-arrow fs-2"></i>
                                 </div>
                                 <div>
                                     <h6 class="mb-0 fw-bold text-white">98% Success</h6>
@@ -94,8 +94,8 @@
                     <div class="position-absolute bottom-0 end-0 mb-5 me-n4 d-none d-xl-block z-3">
                         <div class="hero-float-card">
                             <div class="d-flex align-items-center gap-3">
-                                <div class="bg-warning bg-opacity-25 p-2 rounded-circle text-warning">
-                                    <i class="bi bi-star-fill fs-4"></i>
+                                <div class="text-warning">
+                                    <i class="bi bi-star-fill fs-2"></i>
                                 </div>
                                 <div>
                                     <h6 class="mb-0 fw-bold text-white">4.9/5 Rating</h6>
@@ -155,7 +155,7 @@
             <div class="row g-4 reveal-stagger">
                 <div class="col-md-4 reveal-on-scroll">
                     <div class="card card-elevated feature-card h-100 p-5 text-center border-0">
-                        <div class="feature-icon bg-primary bg-opacity-10 text-primary rounded-3 d-inline-flex align-items-center justify-content-center mx-auto mb-4" style="width: 64px; height: 64px;">
+                        <div class="feature-icon bg-primary bg-gradient text-white rounded-circle shadow-lg d-inline-flex align-items-center justify-content-center mx-auto mb-4" style="width: 64px; height: 64px;">
                             <i class="bi bi-search fs-2"></i>
                         </div>
                         <h4 class="font-heading fw-bold mb-3">Smart Discovery</h4>
@@ -164,7 +164,7 @@
                 </div>
                 <div class="col-md-4 reveal-on-scroll">
                     <div class="card card-elevated feature-card h-100 p-5 text-center border-0">
-                        <div class="feature-icon bg-success bg-opacity-10 text-success rounded-3 d-inline-flex align-items-center justify-content-center mx-auto mb-4" style="width: 64px; height: 64px;">
+                        <div class="feature-icon bg-success bg-gradient text-white rounded-circle shadow-lg d-inline-flex align-items-center justify-content-center mx-auto mb-4" style="width: 64px; height: 64px;">
                             <i class="bi bi-calendar-event fs-2"></i>
                         </div>
                         <h4 class="font-heading fw-bold mb-3">Seamless Scheduling</h4>
@@ -173,7 +173,7 @@
                 </div>
                 <div class="col-md-4 reveal-on-scroll">
                     <div class="card card-elevated feature-card h-100 p-5 text-center border-0">
-                        <div class="feature-icon bg-warning bg-opacity-10 text-warning rounded-3 d-inline-flex align-items-center justify-content-center mx-auto mb-4" style="width: 64px; height: 64px;">
+                        <div class="feature-icon bg-warning bg-gradient text-white rounded-circle shadow-lg d-inline-flex align-items-center justify-content-center mx-auto mb-4" style="width: 64px; height: 64px;">
                             <i class="bi bi-shield-check fs-2"></i>
                         </div>
                         <h4 class="font-heading fw-bold mb-3">Verified Experts</h4>
